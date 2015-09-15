@@ -1,0 +1,79 @@
+<!--<div md-content md-scroll-y flex layout-padding>-->
+
+<div class="container-fluid md-whiteframe-z3">
+    <p></p>
+
+    <div class="row">
+        <!--<md-input-container flex>-->
+            <!--<label>FIND YOUR FAV YEEZY JOINT</label>-->
+            <!--<input ng-model="searchText">-->
+        <!--</md-input-container>-->
+        <!--&lt;!&ndash;<div class="input-group">&ndash;&gt;-->
+            <!--&lt;!&ndash;<span class="input-group-addon">ECOS Search</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;<input type="text" class="form-control ng-pristine ng-valid" placeholder="Enter search term" ng-model="searchText">&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<div ng-show="searchText.length>0" class="searchResults">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="searchResult Header">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div ng-repeat="song in all_songs | filter:searchText">{{song}}</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+        <!--<div ng-show="searchText.length>0" class="searchResults">-->
+
+        <!--<md-list-item ng-repeat="song in all_songs | filter:searchText" role="listitem"-->
+                      <!--class="md-proxy-focus ng-scope md-clickable" tabindex="-1">-->
+            <!--<div class="md-no-style md-list-item-inner">-->
+                <!--<p> {{song}} </p>-->
+                <!--<md-checkbox class="md-secondary ng-untouched ng-valid md-default-theme ng-dirty ng-valid-parse">-->
+                    <!--<div class="md-container" md-ink-ripple="" md-ink-ripple-checkbox="">-->
+                        <!--<div class="md-icon"></div>-->
+                    <!--</div>-->
+                <!--</md-checkbox>-->
+                <!--<div class="md-ripple-container"></div>-->
+            <!--</div>-->
+        <!--</md-list-item>-->
+
+        <!--</div>-->
+
+
+        <div class="col-xs-12" ng-repeat="(album,value) in albumSongHash">
+            <div class="col-xs-12">
+            <md-button ng-click="toggleSong(album)" class="album-btn-spacing md-warn green" aria-label="Use Android">
+                <!--<i class="material-icons md-38">arrow_drop_down</i>-->{{album}}
+            </md-button>
+            </div>
+
+            <div class="song-list col-xs-12" ng-show="value.selected">
+                <md-card>
+                    <md-card-content>
+
+                        <md-list-item ng-repeat="title in value.songs" role="listitem"
+                                      class="md-proxy-focus ng-scope md-clickable" tabindex="-1">
+                            <div class="md-no-style md-list-item-inner">
+                                <p> {{title}} </p>
+                                <md-checkbox
+                                        class="md-secondary ng-untouched ng-valid md-default-theme ng-dirty ng-valid-parse"
+                                        ng-model="topping.wanted" aria-label="Toggle  Pepperoni" role="checkbox"
+                                        tabindex="0" aria-checked="false" aria-invalid="false" style="">
+                                    <div class="md-container" md-ink-ripple="" md-ink-ripple-checkbox="">
+                                        <div class="md-icon"></div>
+                                    </div>
+                                </md-checkbox>
+                                <div class="md-ripple-container"></div>
+                            </div>
+                        </md-list-item>
+
+                        <!--<p ng-repeat="title in value.songs">-->
+                        <!--{{title}}-->
+                        <!--</p>-->
+                    </md-card-content>
+                </md-card>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<!--</div>-->
