@@ -30,5 +30,12 @@
 }
 
 .left-nav {
-  left: 15px;
+  /*left: 15px;*/
+}
+
+.container-fluid-inner {
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
 }

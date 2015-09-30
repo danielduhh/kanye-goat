@@ -1,4 +1,4 @@
-var pg = require('pg');
+var Client = require('pg-native');
 var Q = require("q");
 
 var settings = require('./../settings.js').pg;
@@ -10,6 +10,10 @@ var conString = "postgres://" +
     settings.server + ":" +
     settings.port + "/" +
     settings.database;
+
+var pg = new Client();
+
+//var conString = 'postgres://gzzmncituhhtxm:re4E13HP-uqTlwGW71xoeH25F_@ec2-54-204-30-115.compute-1.amazonaws.com:5432/d491g46d8uagv';
 
 
 /**
@@ -44,20 +48,20 @@ module.exports.queryDeferred = function(sqlStr, opts){
 
     var deferred = Q.defer();
 
-    pg.connect(conString, function(err, client, done) {
+    pg.connect(conString, function(err) {
 
         if(err) {
             console.error('error fetching client from pool', err);
             deferred.reject(err);
         }
 
-        client.query(sqlStr, sqlParams, function(queryerr, result) {
-            done();
+        pg.query(sqlStr.text, sqlStr.values, function(queryerr, result) {
+            //done();
             if(queryerr) {
                 console.error('ERROR RUNNING QUERY:', sqlStr, queryerr);
                 deferred.reject(queryerr);
             } else {
-                deferred.resolve(result && result.rows ? result.rows : []);
+                deferred.resolve(result && result[0].response ? result : []);
             }
         });
 

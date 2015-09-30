@@ -55,9 +55,9 @@ router.get('/all-albums', function(req, res, next) {
 
 
     // All columns in table with the exception of the geometry column
-    var nonGeomColumns = "title,duration,date_released";
+    var nonGeomColumns = "title, date_released,duration";
 
-    var sql = pg.featureCollectionSQL("album", nonGeomColumns, {whereClause:'order by date_released'});
+    var sql = pg.featureCollectionSQL("album", nonGeomColumns);
     var preparedStatement = {
         name: "get_all_albums",
         text: sql,

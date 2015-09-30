@@ -26,27 +26,28 @@
 </head>
 <body>
 
-<div ng-controller="Index" class="container-fluid">
+<div class="container-fluid-inner">
 
-    <!-- Left Side Nav-->
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2 left-nav" md-component-id="left">
-        <md-toolbar class="md-theme-light">
-            <h1 class="md-toolbar-tools">Menu</h1>
-        </md-toolbar>
-        <md-content layout-padding>
-            <!--<md-button ng-click="close()" class="md-primary">-->
+    <div ng-controller="Index">
+        <!-- Left Side Nav-->
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2 left-nav" md-component-id="left">
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">Menu</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <!--<md-button ng-click="close()" class="md-primary">-->
                 <!--Close Sidenav Right-->
-            <!--</md-button>-->
-            <a href="/#albums"> <h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
-            <a href="/#songs"> <h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
+                <!--</md-button>-->
+                <a href="/#albums"><h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
+                <a href="/#songs"><h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
 
-        </md-content>
-    </md-sidenav>
+            </md-content>
+        </md-sidenav>
 
-    <!-- Upper Nav Bar -->
-    <md-toolbar>
+        <!-- Upper Nav Bar -->
+        <md-toolbar>
             <div class="md-toolbar-tools">
-                <md-button  ng-click="toggleLeft()" class="md-icon-button" aria-label="Settings">
+                <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Settings">
                     <md-icon md-font-library="material-icons">menu</md-icon>
                 </md-button>
                 <h2>
@@ -61,9 +62,9 @@
                 </md-button>
             </div>
         </md-toolbar>
+    </div>
 
-
-     <div ng-view></div>
+    <div ng-view></div>
 
 </div>
 
@@ -79,6 +80,7 @@
 <script src="app.js"></script>
 <script src="home/albums.js"></script>
 <script src="home/songs.js"></script>
+<script src="home/services/dataService.js"></script>
 <script src="view2/view2.js"></script>
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>

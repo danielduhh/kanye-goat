@@ -1,14 +1,6 @@
-'use strict';
+angular.module('myApp')
 
-angular.module('myApp.songs', ['ngRoute', 'ngMaterial'])
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/songs', {
-            templateUrl: 'home/songs.html',
-            controller: 'SongsCtrl'
-        });
-    }])
-
-    .controller('SongsCtrl', function ($scope,$http) {
+    .controller('SongsCtrl', function ($scope,$http,$rootScope,dataService) {
 
         $scope.albumSongHash = {};
         $scope.showSong = false;
@@ -16,38 +8,21 @@ angular.module('myApp.songs', ['ngRoute', 'ngMaterial'])
         $scope.all_songs = [];
         $scope.searchText = '';
 
+        $scope.$on('data-change',function(evt,data){
+            console.log(data);
+        });
+
         $scope.toggleSong = function(album){
             $scope.albumSongHash[album].selected = !$scope.albumSongHash[album].selected;
         };
 
-        $scope.getAllSongs = function(){
-            $http.get('api/all-albums').
-                success(function (data) {
-                    console.log(data);
-                    data.features.forEach(function(v){
-                        v.properties.selected = false;
-                        $scope.albumSongHash[v.properties.title] = {};
-                        $scope.albumSongHash[v.properties.title].selected = false;
-                        $scope.albumSongHash[v.properties.title].songs = [];
-                    });
+        var promise = dataService.albumsGet();
 
-                    $http.get('api/all-songs').success(function(songs){
-                        console.log(songs);
-                        songs.features.forEach(function(s){
-                            var album = s.properties.album_title;
-                            var song = s.properties.song_title;
-                            $scope.all_songs.push(song);
+        promise.then(function(response){
+            $scope.albumSongHash = response.albumSongHash;
 
-                            $scope.albumSongHash[album].songs.push(song);
-                        });
-                        console.log($scope.albumSongHash);
-                    })
-
-                }).
-                error(function (error) {
-                    console.log(error);
-                });
-        };
-
-        $scope.getAllSongs();
+            return dataService.songsGet();
+        }).then(function(response){
+            $scope.all_songs = response.all_songs;
+        });
     });
