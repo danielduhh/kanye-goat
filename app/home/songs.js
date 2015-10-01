@@ -16,13 +16,13 @@ angular.module('myApp')
             $scope.albumSongHash[album].selected = !$scope.albumSongHash[album].selected;
         };
 
-        var promise = dataService.albumsGet();
+        //var promise = dataService.albumsGet();
 
-        promise.then(function(response){
-            $scope.albumSongHash = response.albumSongHash;
-
-            return dataService.songsGet();
-        }).then(function(response){
-            $scope.all_songs = response.all_songs;
-        });
+        //promise.then(function(response){
+        //    $scope.albumSongHash = response.albumSongHash;
+        //
+        //    return dataService.songsGet();
+        //}).then(function(response){
+        //    $scope.all_songs = response.all_songs;
+        //});
     });
