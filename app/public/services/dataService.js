@@ -19,7 +19,7 @@ var app = angular.module("myApp")
                         service.albumSongHash[v.properties.title].songs = [];
                     });
 
-                    deferred.resolve(service);
+                    deferred.resolve(service.albumSongHash);
 
                 }, function (response) {
                     deferred.reject(response);
@@ -34,15 +34,16 @@ var app = angular.module("myApp")
 
             $http.get('api/all-songs', {cache: true}).
                 then(function (response) {
+
                     response.data.features.forEach(function (s) {
                         var album = s.properties.album_title;
                         var song = s.properties.song_title;
                         service.all_songs.push(song);
-                        service.albumSongHash[album].songs.push(song);
+                        service.albumSongHash[album].songs.push({label:song, id: s.properties.id, selected:false});
 
                     });
 
-                    deferred.resolve(service);
+                    deferred.resolve(service.all_songs);
 
 
 
@@ -53,6 +54,52 @@ var app = angular.module("myApp")
             return deferred.promise;
 
         };
+
+        service.songVotesGet = function () {
+            var deferred = $q.defer();
+
+            $http.get('api/song-votes', {cache: true}).
+                then(function (response) {
+                    deferred.resolve(response.data);
+
+                }, function (response){
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+
+        };
+
+        service.albumVotesGet = function () {
+            var deferred = $q.defer();
+
+            $http.get('api/album-votes', {cache: true}).
+                then(function (response) {
+                    deferred.resolve(response.data);
+
+                }, function (response){
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+
+        };
+
+
+        service.vote = function (songId, roundId){
+            var deferred = $q.defer();
+
+            var data = JSON.stringify({song:songId, round:roundId});
+
+            $http.post('api/all-songs',data, {headers: {'Content-type': 'application/json'}})
+                .then(function (response) {
+                    deferred.resolve(response);
+                }, function (response){
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        }
 
         return service;
     }]);

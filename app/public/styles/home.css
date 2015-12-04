@@ -36,3 +36,30 @@
 .max-height {
     min-height:91vh;
 }
+
+.chart div {
+    font: 10px sans-serif;
+    background-color: rgb(63,81,181);
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+}
+
+.chart rect {
+    fill:rgb(63,81,181);
+}
+
+.chart text {
+    fill: white;
+    font: 12px sans-serif;
+    text-anchor: end;
+}
+
+.chart rect:hover {
+    fill:greenyellow;
+}
+
+.chart {
+    margin: 50px;
+}

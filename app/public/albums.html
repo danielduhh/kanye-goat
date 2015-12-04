@@ -2,29 +2,29 @@
 
 <div class="container-fluid md-whiteframe-z3">
     <p></p>
-    <input type="file" nv-file-select uploader="uploader"/><br/>
-    <ul>
-        <li ng-repeat="item in uploader.queue">
-            Name: <span ng-bind="item.file.name"></span><br/>
-            <button ng-click="item.upload()">upload</button>
-        </li>
-    </ul>
+    <!--<input type="file" nv-file-select uploader="uploader"/><br/>-->
+    <!--<ul>-->
+        <!--<li ng-repeat="item in uploader.queue">-->
+            <!--Name: <span ng-bind="item.file.name"></span><br/>-->
+            <!--<button ng-click="item.upload()">upload</button>-->
+        <!--</li>-->
+    <!--</ul>-->
 
     <div class="row">
         <!--<md-input-container flex>-->
             <!--<label>FIND YOUR FAV YEEZY JOINT</label>-->
             <!--<input ng-model="searchText">-->
         <!--</md-input-container>-->
-        <!--&lt;!&ndash;<div class="input-group">&ndash;&gt;-->
-            <!--&lt;!&ndash;<span class="input-group-addon">ECOS Search</span>&ndash;&gt;-->
-            <!--&lt;!&ndash;<input type="text" class="form-control ng-pristine ng-valid" placeholder="Enter search term" ng-model="searchText">&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--<div class="input-group">-->
+            <!--<span class="input-group-addon">ECOS Search</span>-->
+            <!--<input type="text" class="form-control ng-pristine ng-valid" placeholder="Enter search term" ng-model="searchText">-->
+        <!--</div>-->
 
-        <!--&lt;!&ndash;<div ng-show="searchText.length>0" class="searchResults">&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="searchResult Header">&ndash;&gt;-->
-                <!--&lt;!&ndash;<div ng-repeat="song in all_songs | filter:searchText">{{song}}</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--<div ng-show="searchText.length>0" class="searchResults">-->
+            <!--<div class="searchResult Header">-->
+                <!--<div ng-repeat="song in all_songs | filter:searchText">{{song}}</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <!--<div ng-show="searchText.length>0" class="searchResults">-->
 
@@ -54,18 +54,18 @@
             <div class="song-list col-xs-12" ng-show="value.selected">
                 <md-card>
                     <md-card-content>
+                        <md-button class="md-fab" aria-label="Vote">
+                            <md-icon md-font-library="material-icons">thumb_up</md-icon>
+                        </md-button>
 
-                        <md-list-item ng-repeat="title in value.songs" role="listitem"
+                        <md-list-item ng-repeat="song in value.songs" role="listitem"
                                       class="md-proxy-focus ng-scope md-clickable" tabindex="-1">
                             <div class="md-no-style md-list-item-inner">
-                                <p> {{title}} </p>
-                                <md-checkbox
-                                        class="md-secondary ng-untouched ng-valid md-default-theme ng-dirty ng-valid-parse"
-                                        ng-model="topping.wanted" aria-label="Toggle  Pepperoni" role="checkbox"
-                                        tabindex="0" aria-checked="false" aria-invalid="false" style="">
-                                    <div class="md-container" md-ink-ripple="" md-ink-ripple-checkbox="">
-                                        <div class="md-icon"></div>
-                                    </div>
+                                <p> {{song.label}} </p>
+                                <md-checkbox ng-click="vote(song.id)"
+                                        class="md-secondary"
+                                        ng-model="song.selected" aria-label="Toggle  Pepperoni" role="checkbox"
+                                        tabindex="0">
                                 </md-checkbox>
                                 <div class="md-ripple-container"></div>
                             </div>
@@ -77,6 +77,7 @@
                     </md-card-content>
                 </md-card>
             </div>
+
 
 
         </div>

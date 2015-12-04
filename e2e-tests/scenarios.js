@@ -5,20 +5,20 @@
 describe('my app', function() {
 
 
-  it('should automatically redirect to /home when location hash/fragment is empty', function() {
+  it('should automatically redirect to /public when location hash/fragment is empty', function() {
     browser.get('index.html');
-    expect(browser.getLocationAbsUrl()).toMatch("/home");
+    expect(browser.getLocationAbsUrl()).toMatch("/public");
   });
 
 
   describe('home', function() {
 
     beforeEach(function() {
-      browser.get('index.html#/home');
+      browser.get('index.html#/public');
     });
 
 
-    it('should render home when user navigates to /home', function() {
+    it('should render public when user navigates to /public', function() {
       expect(element.all(by.css('[ng-view] p')).first().getText()).
         toMatch(/partial for view 1/);
     });

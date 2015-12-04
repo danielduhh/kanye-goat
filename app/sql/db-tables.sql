@@ -28,23 +28,32 @@ end_date date
 
 create table song_votes(
 song_id int references song(id),
-round int references round(id)
+round int references round(id),
+submission_time timestamp default current_timestamp
 );
 
 -- select * from round_song_votes
 
 create view view_songs as
-select s.title as song_title, a.title as album_title, a.date_released, s.artist
+select s.id,s.title as song_title, a.title as album_title, a.date_released, s.artist
 from album a, song s
 where s.album_id = a.id;
 
 create view round_song_votes as 
-select s.title as song_title, count(sv.song_id) as votes, r.label
+select a.title as album, s.title as song, count(sv.song_id) as votes, r.label as round
 from album a, song s, round r, song_votes sv
 where s.album_id = a.id
 and sv.song_id = s.id
 and sv.round = r.id
-group by sv.song_id,s.title,r.label;
+group by sv.song_id,s.title,r.label, a.title;
+
+create view round_album_votes as
+select a.title as album, count(a.id) as votes, r.label as round
+from album a, song s, round r, song_votes sv
+where s.album_id = a.id
+and sv.song_id = s.id
+and sv.round = r.id
+group by a.id, r.label;
 
 /**create view view_song_votes as
 select s.title as song_title, a.title as album_title, a.date_released, s.artist, sv.votes, r.label
@@ -177,6 +186,36 @@ INSERT INTO song (title,duration,album_id) VALUES (	'Live Fast, Die Young w/ Ric
 INSERT INTO song (title,duration,album_id) VALUES (	'Lollipop (Remix) w/ Lil Wayne'	,	'04:27'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 INSERT INTO song (title,duration,album_id) VALUES (	'Sanctified w/ Rick Ross'	,	'04:49'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 INSERT INTO song (title,duration,album_id) VALUES (	'Diamonds (Remix) w/ Rihanna'	,	'04:48'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
+
+/**
+
+	SELECT * FROM VOTE_SONG(1,1);
+**/
+
+CREATE OR REPLACE FUNCTION vote_song(songId int, roundId int)
+  RETURNS boolean AS $$
+  DECLARE
+
+ valid_song_id int;
+ valid_round_id int;
+ submission timestamp;
+
+BEGIN
+
+    SELECT INTO valid_song_id id FROM song WHERE id = $1;
+    SELECT INTO valid_round_id id FROM round WHERE id = $2;
+
+    INSERT INTO song_votes(song_id, round) VALUES (valid_song_id, valid_round_id) RETURNING submission_time INTO submission;
+
+    IF submission IS NOT NULL THEN
+        RETURN TRUE;
+    ELSE
+        RAISE EXCEPTION 'Cannot record vote';
+    END IF;
+
+
+END;
+  $$ LANGUAGE plpgsql VOLATILE;
 
 -- select * from song_votes
 -- select * from view_song_votes

@@ -7,19 +7,23 @@ angular.module('myApp', [
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/songs', {
-                templateUrl: 'home/songs.html',
+                templateUrl: 'public/songs.html',
                 controller: 'AlbumsCtrl'
             })
             .when('/albums', {
-                templateUrl: 'home/albums.html',
+                templateUrl: 'public/albums.html',
                 controller: 'AlbumsCtrl'
+            })
+            .when('/results', {
+                templateUrl: 'public/results.html',
+                controller: 'ResultsCtrl'
             })
             .otherwise({
                 redirectTo: '/albums'
             });
 
     }])
-    .controller('Index', function ($scope,$http,$timeout, $mdSidenav, $mdUtil, $log) {
+    .controller('Index', function ($scope,$http,$timeout, $mdSidenav, $mdUtil, $log, dataService) {
 
         $scope.toggleLeft = buildToggler('left');
 
@@ -29,6 +33,10 @@ angular.module('myApp', [
                     $log.debug("close LEFT is done");
                 });
         };
+
+        $scope.vote = function () {
+
+        }
 
         function buildToggler(navID) {
             var debounceFn =  $mdUtil.debounce(function(){
