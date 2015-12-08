@@ -27,6 +27,6 @@ angular.module('myApp')
             return dataService.songsGet();
         }).then(function(response){
 
-            $scope.all_songs = response.all_songs;
+            $scope.all_songs = response;
         });
     });

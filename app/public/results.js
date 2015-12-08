@@ -148,7 +148,7 @@ angular.module('myApp')
                     })
                     .attr("dy", "1.75em")
                     .text(function (d) {
-                        return d.votes;
+                        return d.song;
                     });
 
                 bar.on('click',function(d,i){
