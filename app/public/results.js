@@ -71,7 +71,7 @@ angular.module('myApp')
                     rect.transition().attr("transform", "translate(" + i * barWidth + ",0)");
 
                     setTimeout(function () {
-                            createSongVoteChart(e.album, i * barWidth)
+                            createSongVoteChart(e.album, i * barWidth, false)
                         }, 200
                     )
                 });
@@ -91,7 +91,9 @@ angular.module('myApp')
 
         createAlbumVoteChart(null);
 
-        function createSongVoteChart(album, start) {
+
+
+        function createSongVoteChart(album, start, redraw) {
 
             var promise = dataService.songVotesGet();
 
@@ -120,20 +122,29 @@ angular.module('myApp')
                     .enter().append("g")
                     .attr("transform", function (d, i) {
                         return "translate(" + start + ",0)";
-                    })
+                    });
 
+                //if drawing chart for the first time
+                if (!redraw) {
 
-                bar.transition()
-                    .delay(function (d, i) {
-                        return i * 150;
-                    })
-                    .attr("transform", function (d, i) {
+                    bar.transition()
+                        .delay(function (d, i) {
+                            return i * 150;
+                        })
+                        .attr("transform", function (d, i) {
                         return "translate(" + i * barWidth + ",0)";
-                    })
+                    });
+                }
+                else {
+                    bar.attr("transform", function (d, i) {
+                        return "translate(" + i * barWidth + ",0)";
+                    });
+                }
+
 
                 bar.append("rect")
                     .attr("y", function (d) {
-                    return y(d.votes);
+                        return y(d.votes);
                     })
                     .attr("height", function (d) {
                         return height - y(d.votes);
@@ -152,10 +163,24 @@ angular.module('myApp')
                     });
 
                 bar.on('click',function(d,i){
+                    //vote using the id of the song and the first round
+                    var promise = dataService.vote(d.song_id, 1);
 
-                    setTimeout(function () {
-                        createAlbumVoteChart(i);
-                    }, 200)
+                    promise.then(function(response) {
+
+                        console.log(response);
+
+                        createSongVoteChart(album, start, true);
+
+
+
+
+
+                    });
+
+                    //setTimeout(function () {
+                    //    createAlbumVoteChart(i);
+                    //}, 200)
                 })
 
             })

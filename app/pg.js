@@ -56,12 +56,14 @@ module.exports.queryDeferred = function(sqlStr, opts){
         }
 
         pg.query(sqlStr.text, sqlStr.values, function(queryerr, result) {
+
+
             //done();
             if(queryerr) {
                 console.error('ERROR RUNNING QUERY:', sqlStr, queryerr);
                 deferred.reject(queryerr);
             } else {
-                deferred.resolve(result && result[0].response ? result : []);
+                deferred.resolve(result ? result : []);
             }
         });
 
