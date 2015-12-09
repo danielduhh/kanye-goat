@@ -23,8 +23,6 @@ router.post('/vote', function(req,res,next){
 })
 
 router.get('/song-votes', function(req, res, next) {
-    console.log('Holla');
-
 
     // All columns in table with the exception of the geometry column
     var nonGeomColumns = "song,album,votes,round";
