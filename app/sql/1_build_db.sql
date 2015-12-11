@@ -40,12 +40,13 @@ from album a, song s
 where s.album_id = a.id;
 
 create view round_song_votes as 
-select a.title as album, s.title as song, count(sv.song_id) as votes, r.label as round
+select a.title as album, s.title as song, sv.song_id as song_id, count(sv.song_id) as votes, r.label as round
 from album a, song s, round r, song_votes sv
 where s.album_id = a.id
 and sv.song_id = s.id
 and sv.round = r.id
 group by sv.song_id,s.title,r.label, a.title;
+
 
 create view round_album_votes as
 select a.title as album, count(a.id) as votes, r.label as round

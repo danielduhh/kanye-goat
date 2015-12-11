@@ -58,7 +58,7 @@ var app = angular.module("myApp")
         service.songVotesGet = function () {
             var deferred = $q.defer();
 
-            $http.get('api/song-votes', {cache: true}).
+            $http.get('api/song-votes', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data);
 

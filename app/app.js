@@ -2,13 +2,12 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-    'ngRoute','ngMaterial', 'angularFileUpload'
-]).
+    'ngRoute','ngMaterial']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/songs', {
                 templateUrl: 'public/songs.html',
-                controller: 'AlbumsCtrl'
+                controller: 'SongsCtrl'
             })
             .when('/albums', {
                 templateUrl: 'public/albums.html',
@@ -23,29 +22,3 @@ angular.module('myApp', [
             });
 
     }])
-    .controller('Index', function ($scope,$http,$timeout, $mdSidenav, $mdUtil, $log, dataService) {
-
-        $scope.toggleLeft = buildToggler('left');
-
-        $scope.close = function () {
-            $mdSidenav('left').close()
-                .then(function () {
-                    $log.debug("close LEFT is done");
-                });
-        };
-
-        $scope.vote = function () {
-
-        }
-
-        function buildToggler(navID) {
-            var debounceFn =  $mdUtil.debounce(function(){
-                $mdSidenav(navID)
-                    .toggle()
-                    .then(function () {
-                        $log.debug("toggle " + navID + " is done");
-                    });
-            },200);
-            return debounceFn;
-        }
-    });

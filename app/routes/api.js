@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var pg = require('../pg');
 
-router.post('/vote', function(req,res,next){
+router.post('/all-songs', function(req,res,next){
+    console.log('post to all-songs');
 
-    var sql = 'SELECT * FROM vote_song($,$)';
+    var sql = "SELECT * FROM vote_song($1,$2)";
 
     var preparedStatement = {
         name: "vote",
@@ -12,20 +13,24 @@ router.post('/vote', function(req,res,next){
         values:[req.body.song, req.body.round]
     };
 
+
     pg.queryDeferred(preparedStatement)
         .then(function(result){
-            res.send(JSON.stringify(result[0].response));
+
+            res.send(JSON.stringify(result[0].vote_song));
         })
         .catch(function(err){
             next(err);
         });
 
-})
+});
 
 router.get('/song-votes', function(req, res, next) {
+    console.log('get song votes');
+
 
     // All columns in table with the exception of the geometry column
-    var nonGeomColumns = "song,album,votes,round";
+    var nonGeomColumns = "song,song_id,album,votes,round";
 
     var sql = pg.featureCollectionSQL("round_song_votes", nonGeomColumns);
     var preparedStatement = {
@@ -45,7 +50,7 @@ router.get('/song-votes', function(req, res, next) {
 });
 
 router.get('/album-votes', function(req, res, next) {
-    console.log('Holla');
+    console.log('get album votes');
 
 
     // All columns in table with the exception of the geometry column
@@ -69,7 +74,7 @@ router.get('/album-votes', function(req, res, next) {
 });
 
 router.get('/all-songs', function(req, res, next) {
-    console.log('Holla');
+    console.log('get all songs');
 
 
     // All columns in table with the exception of the geometry column
@@ -93,7 +98,7 @@ router.get('/all-songs', function(req, res, next) {
 });
 
 router.get('/all-albums', function(req, res, next) {
-    console.log('Holla');
+    console.log('get all albums');
 
 
     // All columns in table with the exception of the geometry column

@@ -1,5 +1,5 @@
 angular.module('myApp')
-    .controller('AlbumsCtrl', function ($rootScope,$scope,$http,dataService,FileUploader) {
+    .controller('AlbumsCtrl', function ($rootScope,$scope,$http,dataService) {
 
         $scope.albumSongHash = {};
         $scope.showSong = false;
@@ -17,7 +17,6 @@ angular.module('myApp')
             console.log(id);
 
         }
-
 
         var promise = dataService.albumsGet();
 
