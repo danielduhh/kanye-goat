@@ -27,7 +27,8 @@ module.exports.queryCallback = function(sql, cb, opts) {
             console.error('error fetching client from pool', err);
         }
         client.query(sqlStr, sqlParams, function(queryerr, result) {
-            done();
+
+            pg.end();
             if(queryerr) {
                 console.error('ERROR RUNNING QUERY:', sqlStr, queryerr);
             }
@@ -57,8 +58,8 @@ module.exports.queryDeferred = function(sqlStr, opts){
 
         pg.query(sqlStr.text, sqlStr.values, function(queryerr, result) {
 
+            pg.end();
 
-            //done();
             if(queryerr) {
                 console.error('ERROR RUNNING QUERY:', sqlStr, queryerr);
                 deferred.reject(queryerr);
