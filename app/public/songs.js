@@ -19,10 +19,10 @@ angular.module('myApp')
         var promise = dataService.albumsGet();
 
         promise.then(function(response){
-            $scope.albumSongHash = response.albumSongHash;
+            $scope.albumSongHash = response;
 
             return dataService.songsGet();
         }).then(function(response){
-            $scope.all_songs = response.all_songs;
+            $scope.all_songs = response;
         });
     });

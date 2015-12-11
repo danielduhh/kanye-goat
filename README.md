@@ -35,3 +35,10 @@ this server is:
 ```
 npm start
 ```
+
+### Development
+Watch for changes and build all js files into app/build/kanye.min.js
+
+```
+grunt 
+```
