@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kanye GOAT</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="./components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <link rel="stylesheet" href="./components/bootstrap/dist/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="app/styles/home.css">
+    <script src="./components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+<!--<svg class="chart"></svg>-->
+
+<div class="container-fluid-inner">
+
+    <div id="MainCtrl" ng-controller="MainCtrl">
+        <!-- Left Side Nav-->
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2 left-nav" md-component-id="left">
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">Menu</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <!--<md-button ng-click="close()" class="md-primary">-->
+                <!--Close Sidenav Right-->
+                <!--</md-button>-->
+                <a href="/#albums"><h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
+                <a href="/#songs"><h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
+                <a href="/#results"><h1 ng-click="close()" class="md-toolbar-tools">Results</h1></a>
+
+            </md-content>
+        </md-sidenav>
+
+        <!-- Upper Nav Bar -->
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Settings">
+                    <md-icon md-font-library="material-icons">menu</md-icon>
+                </md-button>
+                <h2>
+                    <span>Yeezy</span>
+                </h2>
+                <span flex></span>
+
+                <!--<md-menu>-->
+                    <!--<md-button ng-click="openMenu($mdOpenMenu,$event)" class="md-icon-button" aria-label="Open some menu">-->
+                        <!--<md-icon md-menu-origin md-font-library="material-icons">done</md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-menu-content width="4">-->
+                        <!--<md-menu-item>-->
+                            <!--<md-button aria-label="Do something">-->
+                                <!--<md-icon md-menu-align-target md-svg-icon="call:phone"></md-icon>-->
+                                <!--Do Something-->
+                            <!--</md-button>-->
+                        <!--</md-menu-item>-->
+                    <!--</md-menu-content>-->
+                <!--</md-menu>-->
+
+                <md-menu>
+                    <md-button ng-click="$mdOpenMenu()" class="md-icon-button" aria-label="Open sample menu">
+                        <md-icon md-menu-origin md-font-library="material-icons">done</md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            Hello
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
+                <!--<md-button class="md-icon-button" aria-label="Favorite">-->
+                    <!--<md-icon style="color: greenyellow;" ng-click="vote()" md-font-library="material-icons">done</md-icon>-->
+                <!--</md-button>-->
+
+
+
+                <!--<md-button class="md-icon-button" aria-label="More">-->
+                    <!--<md-icon md-font-library="material-icons">more_vert</md-icon>-->
+                <!--</md-button>-->
+            </div>
+        </md-toolbar>
+
+        <div ng-view></div>
+
+        <!--&lt;!&ndash; Bottom Sheet &ndash;&gt;-->
+        <!--<md-toolbar id="submission">-->
+            <!--<div class="md-toolbar-tools">-->
+                <!--<div class="bottom-sheet-demo inset" layout="row" layout-sm="column" layout-align="center" >-->
+                    <!--<md-button flex="100" class="md-primary md-raised" ng-click="showListBottomSheet($event)">Show as List</md-button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</md-toolbar>-->
+
+    </div>
+
+</div>
+
+<script src="./components/angular/angular.js"></script>
+<script src="./components/angular-route/angular-route.js"></script>
+<script src="./components/angular-aria/angular-aria.js"></script>
+<script src="./components/angular-animate/angular-animate.js"></script>
+<script src="./components/angular-material/angular-material.js"></script>
+<script src="./components/jquery/dist/jquery.js"></script>
+<script src="./components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+
+
+<script src="./app/build/kanye.min.js"></script>
+
+</body>
+</html>

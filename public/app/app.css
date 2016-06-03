@@ -1,0 +1,67 @@
+/* app css stylesheet */
+#albums {
+  position: relative;
+  top: 65px;
+}
+
+#songs {
+  position: relative;
+  top: 65px;
+}
+
+#results {
+  position: relative;
+  top: 65px;
+}
+
+md-toolbar {
+  position: fixed;
+}
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+.left-nav {
+  /*left: 15px;*/
+}
+
+.container-fluid-inner {
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+:focus {
+  outline: none;
+}
+
+md-sidenav md-content {
+  top: 65px;
+}

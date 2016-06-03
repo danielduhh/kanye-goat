@@ -10,13 +10,13 @@ module.exports = function (grunt) {
             js: {
                 options: {
                     sourceMap: true,
-                    sourceMapName: 'app/build/kanye.min.map'
+                    sourceMapName: 'public/app/build/kanye.min.map'
                 },
                 files: {
-                    'app/build/kanye.min.js': [
-                        'app/app.js',
-                        'app/public/services/*.js',
-                        'app/public/*.js'
+                    'public/app/build/kanye.min.js': [
+                        'public/app.js',
+                        'public/app/services/*.js',
+                        'public/app/*.js'
                     ]
                 }
             }
@@ -24,11 +24,14 @@ module.exports = function (grunt) {
         watch: {
             code: {
                 files: [
-                    'app/app.js',
-                    'app/public/services/*.js',
-                    'app/public/*.js'
+                    'public/app.js',
+                    'public/app/services/*.js',
+                    'public/app/*.js,',
+                    'public/app/test/*.js',
+                    'public/app/main.js',
+                    'public/index.html'
                 ],
-                tasks: ['dev'],
+                tasks: ['build'],
                 options: {
                     spawn:false
                 }
@@ -42,7 +45,9 @@ module.exports = function (grunt) {
 
 
     // Default task(s).
-    grunt.registerTask('default', []);
-    grunt.registerTask('dev', ['uglify:js']);
+    grunt.registerTask('build', [
+        'uglify:js',
+        'watch:code'
+    ]);
 
 };
