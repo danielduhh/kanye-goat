@@ -16,7 +16,7 @@ module.exports = function (grunt) {
                     'public/app/build/kanye.min.js': [
                         'public/app.js',
                         'public/app/services/*.js',
-                        'public/app/*.js'
+                        'public/app/scripts/*.js'
                     ]
                 }
             }
@@ -26,6 +26,7 @@ module.exports = function (grunt) {
                 files: [
                     'public/app.js',
                     'public/app/services/*.js',
+                    'public/app/scripts/*.js',
                     'public/app/*.js,',
                     'public/app/test/*.js',
                     'public/app/main.js',

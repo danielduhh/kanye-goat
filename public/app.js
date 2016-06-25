@@ -6,19 +6,18 @@ angular.module('myApp', [
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/songs', {
-                templateUrl: 'app/songs.html',
+                templateUrl: 'app/templates/songs.html',
                 controller: 'SongsCtrl'
             })
             .when('/albums', {
-                templateUrl: 'app/albums.html',
+                templateUrl: 'app/templates/albums.html',
                 controller: 'AlbumsCtrl'
             })
             .when('/results', {
-                templateUrl: 'app/results.html',
+                templateUrl: 'app/templates/results.html',
                 controller: 'ResultsCtrl'
             })
             .otherwise({
                 redirectTo: '/albums'
             });
-
     }]);

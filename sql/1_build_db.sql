@@ -29,6 +29,7 @@ end_date date
 create table song_votes(
 song_id int references song(id),
 round int references round(id),
+mac_address character varying,
 submission_time timestamp default current_timestamp
 );
 
@@ -189,25 +190,40 @@ INSERT INTO song (title,duration,album_id) VALUES (	'Sanctified w/ Rick Ross'	,	
 INSERT INTO song (title,duration,album_id) VALUES (	'Diamonds (Remix) w/ Rihanna'	,	'04:48'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 
 /**
+   SELECT * FROM vote_song(1,null,'b8:e8:56:36:ed:85');
+   select * from song_votes;
 
-	SELECT * FROM VOTE_SONG(1,1);
 **/
 
-CREATE OR REPLACE FUNCTION vote_song(songId int, roundId int)
+CREATE OR REPLACE FUNCTION vote_song(songId int, roundId int, macAddress character varying)
   RETURNS boolean AS $$
   DECLARE
 
  valid_song_id int;
  valid_round_id int;
  submission timestamp;
+ eligible boolean;
+ num_votes int;
+ time_remaining interval;
 
 BEGIN
-
     SELECT INTO valid_song_id id FROM song WHERE id = $1;
     SELECT INTO valid_round_id id FROM round WHERE id = $2;
+    SELECT INTO num_votes count(*)::int FROM song_votes WHERE mac_address = $3;
+    
+    IF num_votes >= 5 THEN
+	SELECT INTO eligible * FROM (select now()-(select submission_time from song_votes order by submission_time desc limit 1) > interval '24 hours') as foo;
 
-    INSERT INTO song_votes(song_id, round) VALUES (valid_song_id, valid_round_id) RETURNING submission_time INTO submission;
-
+	IF eligible THEN
+	   INSERT INTO song_votes(song_id, round, mac_address) VALUES (valid_song_id, valid_round_id, $3) RETURNING submission_time INTO submission;
+	ELSE
+	   SELECT INTO time_remaining * FROM (select interval '24 hours' - (select now() - (select submission_time from song_votes order by submission_time desc limit 1))) as foo;
+	   RAISE EXCEPTION 'Vote Limit Reached. Return in %', time_remaining;
+	END IF;
+    ELSE 
+	INSERT INTO song_votes(song_id, round, mac_address) VALUES (valid_song_id, valid_round_id, $3) RETURNING submission_time INTO submission;
+    END IF;
+    
     IF submission IS NOT NULL THEN
         RETURN TRUE;
     ELSE
@@ -218,7 +234,7 @@ BEGIN
 END;
   $$ LANGUAGE plpgsql VOLATILE;
 
--- select * from song_votes
--- select * from view_song_votes
+-- select * from song_votes where ip_address = '10.240.96.99' order by submission_time desc limit 5
+-- select * from round_song_votes
 -- select row_to_json(song) from song; 
 -- SELECT row_to_json(fc) AS response FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features FROM (SELECT 'Feature' As type , row_to_json((SELECT l FROM (select song_title,album_title,date_released, artist,votes) As l )) As properties FROM view_song_votes As t ) As f )  As fc;

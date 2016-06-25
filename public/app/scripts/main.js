@@ -31,7 +31,7 @@ angular.module('myApp')
         $scope.showListBottomSheet = function($event) {
             $scope.alert = '';
             $mdBottomSheet.show({
-                templateUrl: 'bottom-sheet-list-template.html',
+                templateUrl: '../bottom-sheet-list-template.html',
                 controller: 'SubmissionCtrl',
                 targetEvent: $event
             }).then(function(clickedItem) {

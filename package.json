@@ -47,6 +47,7 @@
     "chai-http": "^2.0.1",
     "chai-jq": "0.0.9",
     "chai-things": "^0.2.0",
+    "getmac": "^1.2.1",
     "mocha": "^2.4.5",
     "pg": "^4.5.4",
     "pg-native": "^1.10.0",

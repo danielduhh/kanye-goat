@@ -65,3 +65,7 @@ md-toolbar {
 md-sidenav md-content {
   top: 65px;
 }
+
+md-backdrop.md-opaque.md-default-theme, md-backdrop.md-opaque {
+  background-color: rgba(33,33,33,0);
+}

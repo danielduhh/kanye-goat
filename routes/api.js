@@ -1,27 +1,32 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('../pg');
+var Q = require('q');
+var ip = require('ip');
+var getmac = require('getmac');
 
 router.post('/songs', function(req,res,next){
     console.log('post to /songs');
 
-    var sql = "SELECT * FROM vote_song($1,$2)";
+    // get mac address
+    getmac.getMac(function(err, macAddress){
+        if (err)  throw err;
+        var sql = "SELECT * FROM vote_song($1,$2,$3)";
 
-    var preparedStatement = {
-        name: "vote",
-        text: sql,
-        values:[req.body.song, req.body.round]
-    };
+        var preparedStatement = {
+            name: "vote",
+            text: sql,
+            values:[req.body.song, req.body.round, macAddress]
+        };
 
-
-    pg.queryDeferred(preparedStatement)
-        .then(function(result){
-
-            res.status(200).json(result[0].vote_song);
-        })
-        .catch(function(err){
-            next(err);
-        });
+        pg.queryDeferred(preparedStatement)
+            .then(function(result){
+                res.status(200).json(result[0].vote_song);
+            })
+            .catch(function(err){
+                res.status(400).json({ errCode: 400, status: "ERROR", message: err.message });
+            });
+    });
 
 });
 

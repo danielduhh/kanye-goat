@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="app/styles/app.css">
     <link rel="stylesheet" href="app/styles/home.css">
     <script src="./components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -33,6 +33,7 @@
     <div id="MainCtrl" ng-controller="MainCtrl">
         <!-- Left Side Nav-->
         <md-sidenav class="md-sidenav-left md-whiteframe-z2 left-nav" md-component-id="left">
+            <div ng-cloak>
             <md-toolbar class="md-theme-light">
                 <h1 class="md-toolbar-tools">Menu</h1>
             </md-toolbar>
@@ -45,6 +46,7 @@
                 <a href="/#results"><h1 ng-click="close()" class="md-toolbar-tools">Results</h1></a>
 
             </md-content>
+            </div>
         </md-sidenav>
 
         <!-- Upper Nav Bar -->
@@ -72,16 +74,9 @@
                     <!--</md-menu-content>-->
                 <!--</md-menu>-->
 
-                <md-menu>
-                    <md-button ng-click="$mdOpenMenu()" class="md-icon-button" aria-label="Open sample menu">
-                        <md-icon md-menu-origin md-font-library="material-icons">done</md-icon>
+                    <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Open sample menu">
+                        <md-icon md-font-library="material-icons">done</md-icon>
                     </md-button>
-                    <md-menu-content>
-                        <md-menu-item>
-                            Hello
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
 
                 <!--<md-button class="md-icon-button" aria-label="Favorite">-->
                     <!--<md-icon style="color: greenyellow;" ng-click="vote()" md-font-library="material-icons">done</md-icon>-->
@@ -96,6 +91,17 @@
         </md-toolbar>
 
         <div ng-view></div>
+
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+            <div ng-cloak>
+                <md-toolbar class="md-theme-light">
+                    <h1 class="md-toolbar-tools">Menu</h1>
+                </md-toolbar>
+                <md-content>
+                    yes
+                </md-content>
+            </div>
+        </md-sidenav>
 
         <!--&lt;!&ndash; Bottom Sheet &ndash;&gt;-->
         <!--<md-toolbar id="submission">-->
@@ -118,8 +124,6 @@
 <script src="./components/jquery/dist/jquery.js"></script>
 <script src="./components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
-
-
 <script src="./app/build/kanye.min.js"></script>
 
 </body>
