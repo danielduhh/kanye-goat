@@ -31,24 +31,6 @@
 <div class="container-fluid-inner">
 
     <div id="MainCtrl" ng-controller="MainCtrl">
-        <!-- Left Side Nav-->
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2 left-nav" md-component-id="left">
-            <div ng-cloak>
-                <md-toolbar class="md-theme-light">
-                    <h1 class="md-toolbar-tools">Menu</h1>
-                </md-toolbar>
-                <md-content layout-padding>
-                    <!--<md-button ng-click="close()" class="md-primary">-->
-                    <!--Close Sidenav Right-->
-                    <!--</md-button>-->
-                    <a href="/#albums"><h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
-                    <a href="/#songs"><h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
-                    <a href="/#results"><h1 ng-click="close()" class="md-toolbar-tools">Results</h1></a>
-
-                </md-content>
-            </div>
-        </md-sidenav>
-
         <!-- Upper Nav Bar -->
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -67,9 +49,22 @@
             </div>
         </md-toolbar>
 
-        <div ng-view></div>
+        <!-- Left Side Nav-->
+        <md-sidenav md-component-id="left" md-disable-backdrop>
+            <div ng-cloak>
+                <md-toolbar class="md-theme-light">
+                    <h1 class="md-toolbar-tools">Menu</h1>
+                </md-toolbar>
+                <md-content layout-padding>
+                    <a href="/#albums"><h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
+                    <a href="/#songs"><h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
+                    <a href="/#results"><h1 ng-click="close()" class="md-toolbar-tools">Results</h1></a>
+                </md-content>
+            </div>
+        </md-sidenav>
 
-        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+        <!-- Right Side Nav-->
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-disable-backdrop>
             <div ng-cloak>
                 <md-toolbar class="md-theme-light">
                     <h1 class="md-toolbar-tools">Selections</h1>
@@ -84,23 +79,18 @@
             </div>
         </md-sidenav>
 
-        <!--&lt;!&ndash; Bottom Sheet &ndash;&gt;-->
-        <!--<md-toolbar id="submission">-->
-        <!--<div class="md-toolbar-tools">-->
-        <!--<div class="bottom-sheet-demo inset" layout="row" layout-sm="column" layout-align="center" >-->
-        <!--<md-button flex="100" class="md-primary md-raised" ng-click="showListBottomSheet($event)">Show as List</md-button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</md-toolbar>-->
-
+        <md-content class="mainBody">
+            <div ng-view></div>
+        </md-content>
     </div>
 
 </div>
 
-<script src="./components/angular/angular.js"></script>
+<script src="./components/angular/angular.min.js"></script>
 <script src="./components/angular-route/angular-route.js"></script>
 <script src="./components/angular-aria/angular-aria.js"></script>
 <script src="./components/angular-animate/angular-animate.js"></script>
+<script src="./components/angular-messages/angular-messages.min.js"></script>
 <script src="./components/angular-material/angular-material.js"></script>
 <script src="./components/jquery/dist/jquery.js"></script>
 <script src="./components/bootstrap/dist/js/bootstrap.js"></script>
