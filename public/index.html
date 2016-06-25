@@ -34,18 +34,18 @@
         <!-- Left Side Nav-->
         <md-sidenav class="md-sidenav-left md-whiteframe-z2 left-nav" md-component-id="left">
             <div ng-cloak>
-            <md-toolbar class="md-theme-light">
-                <h1 class="md-toolbar-tools">Menu</h1>
-            </md-toolbar>
-            <md-content layout-padding>
-                <!--<md-button ng-click="close()" class="md-primary">-->
-                <!--Close Sidenav Right-->
-                <!--</md-button>-->
-                <a href="/#albums"><h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
-                <a href="/#songs"><h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
-                <a href="/#results"><h1 ng-click="close()" class="md-toolbar-tools">Results</h1></a>
+                <md-toolbar class="md-theme-light">
+                    <h1 class="md-toolbar-tools">Menu</h1>
+                </md-toolbar>
+                <md-content layout-padding>
+                    <!--<md-button ng-click="close()" class="md-primary">-->
+                    <!--Close Sidenav Right-->
+                    <!--</md-button>-->
+                    <a href="/#albums"><h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
+                    <a href="/#songs"><h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
+                    <a href="/#results"><h1 ng-click="close()" class="md-toolbar-tools">Results</h1></a>
 
-            </md-content>
+                </md-content>
             </div>
         </md-sidenav>
 
@@ -60,33 +60,10 @@
                 </h2>
                 <span flex></span>
 
-                <!--<md-menu>-->
-                    <!--<md-button ng-click="openMenu($mdOpenMenu,$event)" class="md-icon-button" aria-label="Open some menu">-->
-                        <!--<md-icon md-menu-origin md-font-library="material-icons">done</md-icon>-->
-                    <!--</md-button>-->
-                    <!--<md-menu-content width="4">-->
-                        <!--<md-menu-item>-->
-                            <!--<md-button aria-label="Do something">-->
-                                <!--<md-icon md-menu-align-target md-svg-icon="call:phone"></md-icon>-->
-                                <!--Do Something-->
-                            <!--</md-button>-->
-                        <!--</md-menu-item>-->
-                    <!--</md-menu-content>-->
-                <!--</md-menu>-->
+                <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Open sample menu">
+                    <md-icon md-font-library="material-icons">done</md-icon>
+                </md-button>
 
-                    <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Open sample menu">
-                        <md-icon md-font-library="material-icons">done</md-icon>
-                    </md-button>
-
-                <!--<md-button class="md-icon-button" aria-label="Favorite">-->
-                    <!--<md-icon style="color: greenyellow;" ng-click="vote()" md-font-library="material-icons">done</md-icon>-->
-                <!--</md-button>-->
-
-
-
-                <!--<md-button class="md-icon-button" aria-label="More">-->
-                    <!--<md-icon md-font-library="material-icons">more_vert</md-icon>-->
-                <!--</md-button>-->
             </div>
         </md-toolbar>
 
@@ -95,21 +72,25 @@
         <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
             <div ng-cloak>
                 <md-toolbar class="md-theme-light">
-                    <h1 class="md-toolbar-tools">Menu</h1>
+                    <h1 class="md-toolbar-tools">Selections</h1>
                 </md-toolbar>
                 <md-content>
-                    yes
+                    <md-chips ng-model="votes" readonly="false" md-enable-chip-edit="false" md-on-remove="removeSong($chip)">
+                        <md-chip-template>
+                            <strong>{{$chip.label}}</strong>
+                        </md-chip-template>
+                    </md-chips>
                 </md-content>
             </div>
         </md-sidenav>
 
         <!--&lt;!&ndash; Bottom Sheet &ndash;&gt;-->
         <!--<md-toolbar id="submission">-->
-            <!--<div class="md-toolbar-tools">-->
-                <!--<div class="bottom-sheet-demo inset" layout="row" layout-sm="column" layout-align="center" >-->
-                    <!--<md-button flex="100" class="md-primary md-raised" ng-click="showListBottomSheet($event)">Show as List</md-button>-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--<div class="md-toolbar-tools">-->
+        <!--<div class="bottom-sheet-demo inset" layout="row" layout-sm="column" layout-align="center" >-->
+        <!--<md-button flex="100" class="md-primary md-raised" ng-click="showListBottomSheet($event)">Show as List</md-button>-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</md-toolbar>-->
 
     </div>
@@ -124,6 +105,7 @@
 <script src="./components/jquery/dist/jquery.js"></script>
 <script src="./components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+<script src="./components/underscore/underscore-min.js"></script>
 <script src="./app/build/kanye.min.js"></script>
 
 </body>

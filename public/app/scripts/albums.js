@@ -6,8 +6,50 @@ angular.module('myApp')
         $scope.test = '';
         $scope.all_songs = [];
         $scope.searchText = '';
+        $rootScope.votes = [];
 
-        $rootScope.$broadcast('data-change', {data:true});
+        $scope.toggleRight = $rootScope.buildToggler('right');
+
+        $scope.addSongToPanel = function(song){
+
+            if(song.selected){
+                //$scope.toggleRight();
+            }
+
+            console.log($rootScope.votes);
+        };
+
+        $scope.processSelection = function() {
+            var selectedSongs = [];
+
+            Object.keys($scope.albumSongHash).forEach(function(key){
+                $scope.albumSongHash[key].songs.forEach(function(s){
+                    if(s.selected === true){
+                        selectedSongs.push(s);
+                    }
+                })
+            });
+
+            $rootScope.songs = selectedSongs;
+            $rootScope.$broadcast('song-vote', selectedSongs);
+
+            console.log(selectedSongs);
+        };
+
+
+        $scope.$on('song-remove', function(evt, song){
+
+            Object.keys($scope.albumSongHash).forEach(function(key){
+                $scope.albumSongHash[key].songs.forEach(function(s){
+                    if(song.id === s.id){
+                        s.selected = false
+                    }
+                })
+            });
+            
+            $scope.processSelection();
+        });
+
 
         $scope.toggleSong = function(album){
             $scope.albumSongHash[album].selected = !$scope.albumSongHash[album].selected;

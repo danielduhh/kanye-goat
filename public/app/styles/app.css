@@ -69,3 +69,7 @@ md-sidenav md-content {
 md-backdrop.md-opaque.md-default-theme, md-backdrop.md-opaque {
   background-color: rgba(33,33,33,0);
 }
+
+.md-chips .md-chip .md-chip-remove md-icon {
+  top: 27%;
+}

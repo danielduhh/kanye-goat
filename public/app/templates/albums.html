@@ -54,15 +54,11 @@
             <div class="song-list col-xs-12" ng-show="value.selected">
                 <md-card>
                     <md-card-content>
-                        <!--<md-button class="md-fab" aria-label="Vote">-->
-                            <!--<md-icon md-font-library="material-icons">thumb_up</md-icon>-->
-                        <!--</md-button>-->
-
                         <md-list-item ng-repeat="song in value.songs" role="listitem"
                                       class="md-proxy-focus ng-scope md-clickable" tabindex="-1">
-                            <div ng-click="vote(song)" class="md-no-style md-list-item-inner">
+                            <div class="md-no-style md-list-item-inner">
                                 <p> {{song.label}} </p>
-                                <md-checkbox ng-click="vote(song)"
+                                <md-checkbox ng-click="processSelection(song)"
                                         class="md-secondary"
                                         ng-model="song.selected" aria-label="Toggle  Pepperoni" role="checkbox"
                                         tabindex="0">
