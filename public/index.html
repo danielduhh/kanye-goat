@@ -15,7 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="./components/html5-boilerplate/dist/css/main.css">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
     <link rel="stylesheet" href="./components/bootstrap/dist/css/bootstrap.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -26,16 +27,14 @@
 </head>
 <body>
 
-<!--<svg class="chart"></svg>-->
-
-<div class="container-fluid-inner">
+<div layout="column" tabindex="-1" role="main" flex="" class="layout-column flex">
 
     <div id="MainCtrl" ng-controller="MainCtrl">
         <!-- Upper Nav Bar -->
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Settings">
-                    <md-icon md-font-library="material-icons">menu</md-icon>
+                <md-button ng-click="toggleLeft()" class="md-icon-button md-button md-ink-ripple">
+                    <i class="material-icons">menu</i>
                 </md-button>
                 <h2>
                     <span>Yeezy</span>
@@ -43,38 +42,43 @@
                 <span flex></span>
 
                 <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Open sample menu">
-                    <md-icon md-font-library="material-icons">done</md-icon>
+                    <i class="material-icons">done</i>
                 </md-button>
 
             </div>
         </md-toolbar>
 
         <!-- Left Side Nav-->
-        <md-sidenav md-component-id="left" md-disable-backdrop>
+        <md-sidenav md-component-id="left">
             <div ng-cloak>
                 <md-toolbar class="md-theme-light">
                     <h1 class="md-toolbar-tools">Menu</h1>
                 </md-toolbar>
                 <md-content layout-padding>
-                    <a href="/#albums"><h1 ng-click="close()" class="md-toolbar-tools">Albums</h1></a>
-                    <a href="/#songs"><h1 ng-click="close()" class="md-toolbar-tools">Songs</h1></a>
-                    <a href="/#results"><h1 ng-click="close()" class="md-toolbar-tools">Results</h1></a>
+                    <a href="/#albums"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Albums</h1></a>
+                    <a href="/#songs"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Songs</h1></a>
+                    <!--<a href="/#results"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Results</h1></a>-->
                 </md-content>
             </div>
         </md-sidenav>
 
         <!-- Right Side Nav-->
-        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-disable-backdrop>
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
             <div ng-cloak>
                 <md-toolbar class="md-theme-light">
                     <h1 class="md-toolbar-tools">Selections</h1>
                 </md-toolbar>
                 <md-content>
-                    <md-chips ng-model="votes" readonly="false" md-enable-chip-edit="false" md-on-remove="removeSong($chip)">
+                    <md-chips ng-model="votes" readonly="true" md-enable-chip-edit="false" md-on-remove="removeSong($chip)">
                         <md-chip-template>
                             <strong>{{$chip.label}}</strong>
                         </md-chip-template>
                     </md-chips>
+
+                    <div ng-show="voteLength> 0">
+                        <md-button>Submit your Vote</md-button>
+                        <md-button ng-click="clearAllSongs()">Clear</md-button>
+                    </div>
                 </md-content>
             </div>
         </md-sidenav>
@@ -86,15 +90,23 @@
 
 </div>
 
-<script src="./components/angular/angular.min.js"></script>
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+
+<!--<script src="./components/angular/angular.min.js"></script>-->
 <script src="./components/angular-route/angular-route.js"></script>
 <script src="./components/angular-aria/angular-aria.js"></script>
-<script src="./components/angular-animate/angular-animate.js"></script>
-<script src="./components/angular-messages/angular-messages.min.js"></script>
-<script src="./components/angular-material/angular-material.js"></script>
+<!--<script src="./components/angular-animate/angular-animate.js"></script>-->
+<!--<script src="./components/angular-messages/angular-messages.min.js"></script>-->
+<!--<script src="./components/angular-material/angular-material.js"></script>-->
 <script src="./components/jquery/dist/jquery.js"></script>
 <script src="./components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>-->
 <script src="./components/underscore/underscore-min.js"></script>
 <script src="./app/build/kanye.min.js"></script>
 

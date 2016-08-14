@@ -1,24 +1,14 @@
-<div id="songs" class="container-fluid md-whiteframe-z3 max-height">
-    <div class="row">
+<div id="songs" class="md-whiteframe-z3 max-height">
+    <md-content>
 
-        <div class="col-md-8">
-            <md-input-container flex>
+        <div layout="row" class="search-container">
+            <md-input-container flex class="search">
                 <label>FIND YOUR FAV YEEZY JOINT</label>
                 <input ng-model="searchText">
             </md-input-container>
-            <!--<div class="input-group">-->
-            <!--<span class="input-group-addon">ECOS Search</span>-->
-            <!--<input type="text" class="form-control ng-pristine ng-valid" placeholder="Enter search term" ng-model="searchText">-->
-            <!--</div>-->
+        </div>
 
-            <!--<div ng-show="searchText.length>0" class="searchResults">-->
-            <!--<div class="searchResult Header">-->
-            <!--<div ng-repeat="song in all_songs | filter:searchText">{{song}}</div>-->
-            <!--</div>-->
-            <!--</div>-->
-
-            <div ng-show="searchText.length>0" class="searchResults">
-
+        <div layout="column" flex="100" ng-show="searchText.length>0" class="searchResults">
                 <md-list-item ng-repeat="song in all_songs | filter:searchText" role="listitem"
                               class="md-proxy-focus ng-scope md-clickable" tabindex="-1">
                     <div class="song-item md-no-style md-list-item-inner">
@@ -34,25 +24,6 @@
                 </md-list-item>
 
             </div>
-        </div>
-
-        <!--<div class="col-md-4">-->
-            <!--<md-toolbar class="md-warm">-->
-                <!--<h2 class="md-toolbar-tools">-->
-                    <!--<span>Selections</span>-->
-                <!--</h2>-->
-            <!--</md-toolbar>-->
-
-            <!--<md-content>-->
-                <!--<md-chips ng-model="selections">-->
-                    <!--<md-chip-template>-->
-                        <!--{{$chip}}-->
-                        <!--<i class="material-icons close-chip" ng-click="removeSong($chip)" md-chip-remove>close</i>-->
-                    <!--</md-chip-template>-->
-                    <!--<div md-chip-remove></div>-->
-                <!--</md-chips>-->
-            <!--</md-content>-->
-        <!--</div>-->
-    </div>
+    </md-content>
 
 </div>

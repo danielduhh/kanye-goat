@@ -1,13 +1,13 @@
 <div class="md-whiteframe-z3">
-    <md-content class="row">
-        <div class="col-xs-12" ng-repeat="(album,value) in albumSongHash">
-            <div class="col-xs-12">
+    <md-content layout="column">
+        <div flex="100" ng-repeat="(album,value) in albumSongHash">
+            <div flex>
             <md-button ng-click="toggleSong(album)" class="album-btn-spacing md-warn green" aria-label="Use Android">
                 {{album}}
             </md-button>
             </div>
 
-            <div class="song-list col-xs-12" ng-show="value.selected">
+            <div flex class="song-list" ng-show="value.selected">
                 <md-card>
                     <md-card-content>
                         <md-list-item ng-repeat="song in value.songs" role="listitem"
@@ -26,6 +26,5 @@
                 </md-card>
             </div>
         </div>
-
     </md-content>
 </div>

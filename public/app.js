@@ -13,11 +13,13 @@ angular.module('myApp', [
                 templateUrl: 'app/templates/albums.html',
                 controller: 'AlbumsCtrl'
             })
-            .when('/results', {
-                templateUrl: 'app/templates/results.html',
-                controller: 'ResultsCtrl'
-            })
+            //.when('/results', {
+            //    templateUrl: 'app/templates/results.html',
+            //    controller: 'ResultsCtrl'
+            //})
             .otherwise({
                 redirectTo: '/albums'
             });
+
+
     }]);

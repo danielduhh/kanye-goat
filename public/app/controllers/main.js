@@ -11,19 +11,19 @@ angular.module('myApp')
             }, 200);
             return debounceFn;
         };
+
         $scope.toggleLeft = $rootScope.buildToggler('left');
         $scope.toggleRight = $rootScope.buildToggler('right');
         $scope.votes = [];
+        $scope.voteLength = 0;
 
-        $scope.close = function () {
-            $mdSidenav('left').close()
-                .then(function () {
-                    $log.debug("close LEFT is done");
-                });
+        $scope.closeNav = function (navId) {
+            $mdSidenav(navId).close()
         };
 
         $scope.$on('song-vote', function(evt, song){
             $scope.votes = song;
+            $scope.voteLength = $scope.votes.length;
         });
 
         $scope.removeSong = function(song){
@@ -35,18 +35,16 @@ angular.module('myApp')
             $mdOpenMenu(event);
         };
 
-        $scope.items = [
-            {name: 'Hangout', icon: 'hangout'},
-            {name: 'Mail', icon: 'mail'},
-            {name: 'Message', icon: 'message'},
-            {name: 'Copy', icon: 'copy2'},
-            {name: 'Facebook', icon: 'facebook'},
-            {name: 'Twitter', icon: 'twitter'}
-        ];
-
         $scope.listItemClick = function ($index) {
             var clickedItem = $scope.items[$index];
             $mdBottomSheet.hide(clickedItem);
+        };
+
+        /**
+         * clear all song selections
+         */
+        $scope.clearAllSongs = function (){
+            $rootScope.$broadcast('clear-all-selections');
         };
 
         $rootScope.showListBottomSheet = function ($event) {

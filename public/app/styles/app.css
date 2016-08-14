@@ -6,7 +6,15 @@
 
 #songs {
   position: relative;
-  top: 65px;
+}
+
+#songs .search-container {
+  margin: auto;
+}
+
+#songs .search{
+  max-width: 85%;
+  margin: auto;
 }
 
 #results {

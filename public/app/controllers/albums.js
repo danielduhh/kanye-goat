@@ -1,5 +1,5 @@
 angular.module('myApp')
-    .controller('AlbumsCtrl', function ($rootScope,$scope,$http,dataService) {
+    .controller('AlbumsCtrl', function ($rootScope,$scope,$http,$mdSidenav,dataService) {
 
         $scope.albumSongHash = {};
         $scope.showSong = false;
@@ -36,7 +36,6 @@ angular.module('myApp')
             console.log(selectedSongs);
         };
 
-
         $scope.$on('song-remove', function(evt, song){
 
             Object.keys($scope.albumSongHash).forEach(function(key){
@@ -50,6 +49,18 @@ angular.module('myApp')
             $scope.processSelection();
         });
 
+        $scope.$on('clear-all-selections', function () {
+            Object.keys($scope.albumSongHash).forEach(function(key){
+                $scope.albumSongHash[key].songs.forEach(function(s){
+                    s.selected = false
+                })
+            });
+
+            $scope.processSelection();
+
+            // close right navigation
+            $mdSidenav('right').close();
+        });
 
         $scope.toggleSong = function(album){
             $scope.albumSongHash[album].selected = !$scope.albumSongHash[album].selected;
