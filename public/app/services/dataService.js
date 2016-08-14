@@ -85,10 +85,10 @@ var app = angular.module("myApp")
 
         };
 
-        service.vote = function (songId, roundId){
+        service.vote = function (songsIds){
             var deferred = $q.defer();
 
-            var data = JSON.stringify({song:songId, round:roundId});
+            var data = JSON.stringify({song:songsIds});
 
             $http.post('api/songs',data, {headers: {'Content-type': 'application/json'}})
                 .then(function (response) {

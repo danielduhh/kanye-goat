@@ -11,12 +11,12 @@ router.post('/songs', function(req,res,next){
     // get mac address
     getmac.getMac(function(err, macAddress){
         if (err)  throw err;
-        var sql = "SELECT * FROM vote_song($1,$2,$3)";
+        var sql = "SELECT * FROM ___yeezy_vote_song($1,$2,$3)";
 
         var preparedStatement = {
             name: "vote",
             text: sql,
-            values:[req.body.song, req.body.round, macAddress]
+            values:[req.body.song, 1, macAddress]
         };
 
         pg.queryDeferred(preparedStatement)

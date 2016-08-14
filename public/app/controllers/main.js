@@ -1,19 +1,26 @@
 angular.module('myApp')
-    .controller('MainCtrl', function ($rootScope, $scope, $http, $timeout, $mdSidenav, $mdUtil, $mdBottomSheet, $log, dataService) {
+    .controller('MainCtrl', function ($rootScope, $scope, $http, $timeout, $mdSidenav, $mdToast, $mdUtil, $mdBottomSheet, $log, dataService) {
 
         $rootScope.buildToggler = function (navID) {
             var debounceFn = $mdUtil.debounce(function () {
                 $mdSidenav(navID)
                     .toggle()
-                    .then(function () {
-                        $log.debug("toggle " + navID + " is done");
-                    });
             }, 200);
             return debounceFn;
         };
 
+        $rootScope.showSimpleToast = function(position, text) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(text)
+                    .position(position)
+                    .hideDelay(3000)
+            );
+        };
+
         $scope.toggleLeft = $rootScope.buildToggler('left');
         $scope.toggleRight = $rootScope.buildToggler('right');
+
         $scope.votes = [];
         $scope.voteLength = 0;
 
@@ -21,12 +28,12 @@ angular.module('myApp')
             $mdSidenav(navId).close()
         };
 
-        $scope.$on('song-vote', function(evt, song){
+        $scope.$on('song-vote', function (evt, song) {
             $scope.votes = song;
             $scope.voteLength = $scope.votes.length;
         });
 
-        $scope.removeSong = function(song){
+        $scope.removeSong = function (song) {
             $rootScope.$broadcast('song-remove', song);
         };
 
@@ -41,21 +48,36 @@ angular.module('myApp')
         };
 
         /**
-         * clear all song selections
+         * Submit user votes
          */
-        $scope.clearAllSongs = function (){
-            $rootScope.$broadcast('clear-all-selections');
+        $scope.sendVotes = function () {
+
+            var voteIds = [];
+
+            $rootScope.votes.forEach(function (v, i) {
+                voteIds.push(v.id)
+            });
+
+            var promise = dataService.vote(voteIds);
+            promise
+                .then(function (res) {
+                    // close nav bar and give success message
+                    $scope.closeNav('right');
+                    $rootScope.showSimpleToast('bottom', 'Thanks for your votes!')
+
+                })
+                .catch(function (err) {
+                    // show error
+                    $rootScope.showSimpleToast('bottom', err.data.message);
+
+                })
         };
 
-        $rootScope.showListBottomSheet = function ($event) {
-            $scope.alert = '';
-            $mdBottomSheet.show({
-                templateUrl: '../templates/bottom-sheet-list-template.html',
-                controller: 'SubmissionCtrl',
-                targetEvent: $event
-            }).then(function (clickedItem) {
-                $scope.alert = clickedItem['name'] + ' clicked!';
-            });
+        /**
+         * clear all song selections
+         */
+        $scope.clearAllSongs = function () {
+            $rootScope.$broadcast('clear-all-selections');
         };
     });
 

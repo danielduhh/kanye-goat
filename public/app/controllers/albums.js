@@ -10,15 +10,6 @@ angular.module('myApp')
 
         $scope.toggleRight = $rootScope.buildToggler('right');
 
-        $scope.addSongToPanel = function(song){
-
-            if(song.selected){
-                //$scope.toggleRight();
-            }
-
-            console.log($rootScope.votes);
-        };
-
         $scope.processSelection = function() {
             var selectedSongs = [];
 
@@ -30,10 +21,9 @@ angular.module('myApp')
                 })
             });
 
-            $rootScope.songs = selectedSongs;
+            $rootScope.votes = selectedSongs;
             $rootScope.$broadcast('song-vote', selectedSongs);
 
-            console.log(selectedSongs);
         };
 
         $scope.$on('song-remove', function(evt, song){
@@ -64,18 +54,6 @@ angular.module('myApp')
 
         $scope.toggleSong = function(album){
             $scope.albumSongHash[album].selected = !$scope.albumSongHash[album].selected;
-        };
-
-        $scope.vote = function (song) {
-            var promise = dataService.vote(song.id);
-
-            promise
-                .then(function(res){
-                console.log(res)
-                })
-                .catch(function(err){
-                    console.log(err);
-                })
         };
 
         var promise = dataService.albumsGet();

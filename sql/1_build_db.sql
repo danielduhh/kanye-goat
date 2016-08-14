@@ -1,6 +1,8 @@
 ﻿drop schema public cascade;
 create schema public;
 
+CREATE EXTENSION plv8;
+
 create table album(
 id serial not null primary key,
 title character varying,
@@ -189,52 +191,62 @@ INSERT INTO song (title,duration,album_id) VALUES (	'Lollipop (Remix) w/ Lil Way
 INSERT INTO song (title,duration,album_id) VALUES (	'Sanctified w/ Rick Ross'	,	'04:49'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 INSERT INTO song (title,duration,album_id) VALUES (	'Diamonds (Remix) w/ Rihanna'	,	'04:48'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 
-/**
-   SELECT * FROM vote_song(1,null,'b8:e8:56:36:ed:85');
-   select * from song_votes;
+/****
 
-**/
+SELECT * from song_votes;
+SELECT * FROM ___yeezy_vote_song(ARRAY[(SELECT floor(random()*(113-1)+2)::int)], 1, (SELECT floor(random()*(3000-1)+2)::char));
 
-CREATE OR REPLACE FUNCTION vote_song(songId int, roundId int, macAddress character varying)
-  RETURNS boolean AS $$
-  DECLARE
+SELECT * FROM ___yeezy_vote_song((SELECT floor(random()*(113-1)+2)::int),1);
+SELECT * FROM ___yeezy_vote_song((SELECT floor(random()*(113-1)+2)::int),1);
 
- valid_song_id int;
- valid_round_id int;
- submission timestamp;
- eligible boolean;
- num_votes int;
- time_remaining interval;
+****/
 
-BEGIN
-    SELECT INTO valid_song_id id FROM song WHERE id = $1;
-    SELECT INTO valid_round_id id FROM round WHERE id = $2;
-    SELECT INTO num_votes count(*)::int FROM song_votes WHERE mac_address = $3;
-    
-    IF num_votes >= 5 THEN
-	SELECT INTO eligible * FROM (select now()-(select submission_time from song_votes order by submission_time desc limit 1) > interval '24 hours') as foo;
+CREATE OR REPLACE FUNCTION ___yeezy_vote_song(song_ids integer[], round_id integer, mac_address character varying)
+  RETURNS boolean AS
+$BODY$
 
-	IF eligible THEN
-	   INSERT INTO song_votes(song_id, round, mac_address) VALUES (valid_song_id, valid_round_id, $3) RETURNING submission_time INTO submission;
-	ELSE
-	   SELECT INTO time_remaining * FROM (select interval '24 hours' - (select now() - (select submission_time from song_votes order by submission_time desc limit 1))) as foo;
-	   RAISE EXCEPTION 'Vote Limit Reached. Return in %', time_remaining;
-	END IF;
-    ELSE 
-	INSERT INTO song_votes(song_id, round, mac_address) VALUES (valid_song_id, valid_round_id, $3) RETURNING submission_time INTO submission;
-    END IF;
-    
-    IF submission IS NOT NULL THEN
-        RETURN TRUE;
-    ELSE
-        RAISE EXCEPTION 'Cannot record vote';
-    END IF;
+ var valid_song_id;
+ var valid_round_id;
+ var submission;
+ var eligible;
+ var num_votes;
+ var time_remaining;
+ var hours;
+ var minutes;
 
+    song_ids.forEach(function(id){
+	  valid_song_id = plv8.execute("SELECT id FROM song WHERE id = $1", [id])[0].id ;
+	  valid_round_id = plv8.execute("SELECT id FROM round WHERE id = $1", [round_id])[0].id;
+	  num_votes = plv8.execute("SELECT count(*)::int FROM song_votes WHERE mac_address = $1", [mac_address])[0].count;
 
-END;
-  $$ LANGUAGE plpgsql VOLATILE;
+	  if (num_votes >= 5){
+		eligible = plv8.execute("select now()-(select submission_time from song_votes where mac_address = $1 order by submission_time desc limit 1) > interval '24 hours' as time_difference", [mac_address])[0]['time_difference'];
+	  if (eligible){
+		try {
+			submission = plv8.execute("INSERT INTO song_votes(song_id, round, mac_address) VALUES ($1, $2, $3) RETURNING submission_time", [valid_song_id, valid_round_id, mac_address])
+		} catch(e){
+			return plv8.elog(ERROR, e);
+		}
+	  } else {
+		time_remaining = plv8.execute("select interval '24 hours' - (select now() - (select submission_time from song_votes where mac_address = $1 order by submission_time desc limit 1)) as time_remaining", [mac_address])[0]['time_remaining'];
+		hours = plv8.execute("SELECT EXTRACT(HOUR FROM interval '24 hours' - (select now() - (select submission_time from song_votes order by submission_time desc limit 1)))")[0]['date_part'];
+		minutes = plv8.execute("SELECT EXTRACT(MINUTE FROM interval '24 hours' - (select now() - (select submission_time from song_votes order by submission_time desc limit 1)))")[0]['date_part'];
 
--- select * from song_votes where ip_address = '10.240.96.99' order by submission_time desc limit 5
--- select * from round_song_votes
--- select row_to_json(song) from song; 
--- SELECT row_to_json(fc) AS response FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features FROM (SELECT 'Feature' As type , row_to_json((SELECT l FROM (select song_title,album_title,date_released, artist,votes) As l )) As properties FROM view_song_votes As t ) As f )  As fc;
+		return plv8.elog(ERROR, 'Vote limit exceeded. Return in ' + hours + ' hours and ' + minutes + ' minutes!');
+	  }
+	  } else {
+		submission = plv8.execute("INSERT INTO song_votes(song_id, round, mac_address) VALUES ($1, $2, $3) RETURNING submission_time", [valid_song_id, valid_round_id, mac_address])[0]['submission_time'];
+	  }
+
+    });
+
+        if (submission !== null){
+    	plv8.elog(NOTICE, "submission = ", JSON.stringify(submission));
+	return true;
+    }else {
+	return plv8.elog(ERROR, 'Cannot record vote');
+    }
+
+$BODY$
+  LANGUAGE plv8 VOLATILE
+  COST 100;
