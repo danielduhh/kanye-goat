@@ -63,13 +63,14 @@ angular.module('myApp')
                 .then(function (res) {
                     // close nav bar and give success message
                     $scope.closeNav('right');
-                    $rootScope.showSimpleToast('bottom', 'Thanks for your votes!')
+                    $rootScope.showSimpleToast('bottom', 'Thanks for your vote!');
+                    $scope.clearAllSongs();
 
                 })
                 .catch(function (err) {
                     // show error
                     $rootScope.showSimpleToast('bottom', err.data.message);
-
+                    $scope.clearAllSongs();
                 })
         };
 
@@ -78,6 +79,8 @@ angular.module('myApp')
          */
         $scope.clearAllSongs = function () {
             $rootScope.$broadcast('clear-all-selections');
+            // close right navigation
+            $mdSidenav('right').close();
         };
     });
 

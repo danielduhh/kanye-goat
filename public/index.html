@@ -41,7 +41,7 @@
                 </h2>
                 <span flex></span>
 
-                <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Open sample menu">
+                <md-button ng-disabled="voteLength === 0" ng-click="toggleRight()" class="md-icon-button" aria-label="Open sample menu">
                     <i class="material-icons">done</i>
                 </md-button>
 
@@ -49,21 +49,21 @@
         </md-toolbar>
 
         <!-- Left Side Nav-->
-        <md-sidenav md-component-id="left">
+        <md-sidenav md-component-id="left" ng-cloak>
             <div ng-cloak>
                 <md-toolbar class="md-theme-light">
                     <h1 class="md-toolbar-tools">Menu</h1>
                 </md-toolbar>
                 <md-content layout-padding>
                     <a href="/#albums"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Albums</h1></a>
-                    <a href="/#songs"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Songs</h1></a>
+                    <a href="/#songs"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Search</h1></a>
                     <!--<a href="/#results"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Results</h1></a>-->
                 </md-content>
             </div>
         </md-sidenav>
 
         <!-- Right Side Nav-->
-        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" ng-cloak>
             <div ng-cloak>
                 <md-toolbar class="md-theme-light">
                     <h1 class="md-toolbar-tools">Selections</h1>
@@ -71,7 +71,7 @@
                 <md-content>
                     <md-chips ng-model="votes" readonly="true" md-enable-chip-edit="false" md-on-remove="removeSong($chip)">
                         <md-chip-template>
-                            <strong>{{$chip.label}}</strong>
+                            <strong>{{$chip.label || $chip.title}}</strong>
                         </md-chip-template>
                     </md-chips>
 
@@ -83,7 +83,7 @@
             </div>
         </md-sidenav>
 
-        <md-content class="mainBody">
+        <md-content class="mainBody" ng-cloak>
             <div ng-view></div>
         </md-content>
     </div>
@@ -93,17 +93,12 @@
 <!-- Angular Material requires Angular.js Libraries -->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
 <!-- Angular Material Library -->
 <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 
-<!--<script src="./components/angular/angular.min.js"></script>-->
 <script src="./components/angular-route/angular-route.js"></script>
-<script src="./components/angular-aria/angular-aria.js"></script>
-<!--<script src="./components/angular-animate/angular-animate.js"></script>-->
-<!--<script src="./components/angular-messages/angular-messages.min.js"></script>-->
-<!--<script src="./components/angular-material/angular-material.js"></script>-->
 <script src="./components/jquery/dist/jquery.js"></script>
 <script src="./components/bootstrap/dist/js/bootstrap.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>-->

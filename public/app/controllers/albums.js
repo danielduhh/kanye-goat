@@ -11,6 +11,12 @@ angular.module('myApp')
         $scope.toggleRight = $rootScope.buildToggler('right');
 
         $scope.processSelection = function() {
+
+            // checkboxes between song and album ctrl need to be synchronized
+            // so notify songctrl of a selection
+
+            $rootScope.$broadcast('albumCtrl-vote-processed');
+
             var selectedSongs = [];
 
             Object.keys($scope.albumSongHash).forEach(function(key){
@@ -23,7 +29,6 @@ angular.module('myApp')
 
             $rootScope.votes = selectedSongs;
             $rootScope.$broadcast('song-vote', selectedSongs);
-
         };
 
         $scope.$on('song-remove', function(evt, song){
@@ -47,9 +52,6 @@ angular.module('myApp')
             });
 
             $scope.processSelection();
-
-            // close right navigation
-            $mdSidenav('right').close();
         });
 
         $scope.toggleSong = function(album){

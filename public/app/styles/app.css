@@ -13,6 +13,11 @@
   min-height: 100px;
 }
 
+.results-container {
+  max-width: 85%;
+  margin: auto;
+}
+
 #songs .search{
   max-width: 85%;
   margin: auto;

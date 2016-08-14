@@ -8,22 +8,21 @@
             </md-input-container>
         </div>
 
-        <div layout="column" flex="100" ng-show="searchText.length>0" class="searchResults">
-                <md-list-item ng-repeat="song in all_songs | filter:searchText" role="listitem"
-                              class="md-proxy-focus ng-scope md-clickable" tabindex="-1">
-                    <div class="song-item md-no-style md-list-item-inner">
-                        <p> {{song.title}} </p>
-                        <md-checkbox ng-model="song.selected" ng-change="selectSong(song)"
-                                class="md-secondary ng-untouched ng-valid md-default-theme ng-dirty ng-valid-parse">
-                            <div class="md-container" md-ink-ripple="" md-ink-ripple-checkbox="">
-                                <div class="md-icon"></div>
-                            </div>
-                        </md-checkbox>
-                        <div class="md-ripple-container"></div>
-                    </div>
-                </md-list-item>
+        <div layout="column" flex="100" ng-show="searchText.length>0" class="searchResults results-container">
 
-            </div>
+            <md-list-item ng-repeat="song in all_songs | filter:searchText" role="listitem"
+                          class="md-proxy-focus ng-scope md-clickable" tabindex="-1">
+                <div class="song-item md-no-style md-list-item-inner">
+                    <p> {{song.title}} </p>
+                    <md-checkbox ng-click="processSelection(song)"
+                                 class="md-secondary"
+                                 ng-model="song.selected" aria-label="Toggle  Pepperoni" role="checkbox"
+                                 tabindex="0">
+                    </md-checkbox>
+                    <div class="md-ripple-container"></div>
+                </div>
+            </md-list-item>
+        </div>
     </md-content>
 
 </div>
