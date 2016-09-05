@@ -1,16 +1,16 @@
 var pg = require('pg');
 var Q = require("q");
-var settings = require('./settings.js').pg;
+var settings = require('./settings.js').heroku;
 
-//pg.defaults.ssl = true;
+pg.defaults.ssl = true;
 
 // PostGIS Connection String
 var conString = "postgres://" +
-    settings.user + ":" +
-    settings.password + "@" +
-    settings.server + ":" +
-    settings.port + "/" +
-    settings.database;
+    process.env.DB_USER  || settings.user + ":" +
+    process.env.DB_PASSWORD || settings.password + "@" +
+    process.env.DB_SERVER || settings.server + ":" +
+    process.env.DB_PORT || settings.port + "/" +
+    process.env.DB_NAME || settings.database;
 
 //var conString = 'postgres://gzzmncituhhtxm:re4E13HP-uqTlwGW71xoeH25F_@ec2-54-204-30-115.compute-1.amazonaws.com:5432/d491g46d8uagv';
 
