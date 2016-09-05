@@ -22,7 +22,7 @@ firebase.initializeApp({
 
 // configuration =================
 
-app.set('port', (process.env.PORT));
+app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
@@ -38,8 +38,11 @@ app.listen(app.get('port'), function() {
 });console.log("App listening on port " +  app.get('port'));
 
 // application -------------------------------------------------------------
-app.get('*',function(req,res){
-    res.sendfile('./public/index.html');     // load angular index file
+//app.get('*',function(req,res){
+//    res.sendfile('./public/index.html');     // load angular index file
+//});
+app.use(function(req, res){
+    res.sendFile(__dirname + "/public/index.html");
 });
 
 // app = module.exports;
