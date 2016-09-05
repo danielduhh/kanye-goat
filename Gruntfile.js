@@ -56,8 +56,11 @@ module.exports = function (grunt) {
 
     // Default task(s).
     grunt.registerTask('build', [
+        'concat:dist'
+    ]);
+
+    grunt.registerTask('build-watch', [
         'concat:dist',
         'watch:code'
     ]);
-
 };
