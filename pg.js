@@ -1,7 +1,6 @@
 var pg = require('pg');
 var Q = require("q");
 //var settings = require('./settings.js').heroku;
-
 pg.defaults.ssl = true;
 
 // PostGIS Connection String
