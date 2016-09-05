@@ -40,6 +40,10 @@
     "postinstall": "bower install && grunt build"
   },
   "dependencies": {
+    "body-parser": "~1.5.2",
+    "http-server": "^0.6.1",
+    "method-override": "~2.1.2",
+    "morgan": "~1.2.2",
     "bower": "^1.7.9",
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
