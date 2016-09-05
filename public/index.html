@@ -30,7 +30,7 @@
 </head>
 <body ng-controller="MainCtrl">
 
-<div id="splash" ng-class="{on: !showSplash}">
+<div id="splash" ng-class="{on: showSplash}">
     <!--<i class="material-icons">close</i>-->
     <div class="intro">
         Welcome to voteyeezy. We’re here to pay homage to our generation's most influential artist. What is Kanye's best song? You decide.
@@ -43,7 +43,7 @@
     </div>
 </div>
 
-<div ng-hide="!showSplash" ng-cloak="" layout="column" tabindex="-1" role="main" flex="" class="layout-column flex">
+<div ng-hide="showSplash" ng-cloak="" layout="column" tabindex="-1" role="main" flex="" class="layout-column flex">
 
     <div id="MainCtrl">
 
