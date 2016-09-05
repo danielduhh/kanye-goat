@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var pg = require('../pg');
 var Q = require('q');
-var ip = require('ip');
 var getmac = require('getmac');
 
 router.post('/songs', function(req,res,next){
