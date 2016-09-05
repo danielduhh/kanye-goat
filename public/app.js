@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-    'ngRoute','ngMaterial']).
+    'ngRoute','ngMaterial', 'LocalForageModule']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/songs', {
@@ -13,10 +13,6 @@ angular.module('myApp', [
                 templateUrl: 'app/templates/albums.html',
                 controller: 'AlbumsCtrl'
             })
-            //.when('/results', {
-            //    templateUrl: 'app/templates/results.html',
-            //    controller: 'ResultsCtrl'
-            //})
             .otherwise({
                 redirectTo: '/albums'
             });

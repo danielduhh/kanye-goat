@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "VCR";
+    src: url("//cdn.shopify.com/s/files/1/1255/2951/t/2/assets/VCR_OSD_MONO.eot?741669282348130352");
+    src: url("//cdn.shopify.com/s/files/1/1255/2951/t/2/assets/VCR_OSD_MONO.eot?741669282348130352&#iefix") format("embedded-opentype"),
+    url("//cdn.shopify.com/s/files/1/1255/2951/t/2/assets/VCR_OSD_MONO.woff?741669282348130352") format("woff"),
+    url("//cdn.shopify.com/s/files/1/1255/2951/t/2/assets/VCR_OSD_MONO.ttf?741669282348130352") format("truetype"),
+    url("//cdn.shopify.com/s/files/1/1255/2951/t/2/assets/VCR_OSD_MONO.svg?741669282348130352#VCR") format("svg");
+    font-weight: "normal";
+    font-style: "normal"; }
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    @font-face {
+        font-family: "VCR";
+        src: url("//cdn.shopify.com/s/files/1/1255/2951/t/2/assets/VCR_OSD_MONO.svg?741669282348130352#VCR") format("svg"); } }
+

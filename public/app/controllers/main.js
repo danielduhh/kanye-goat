@@ -1,5 +1,15 @@
 angular.module('myApp')
-    .controller('MainCtrl', function ($rootScope, $scope, $http, $timeout, $mdSidenav, $mdToast, $mdUtil, $mdBottomSheet, $log, dataService) {
+    .controller('MainCtrl', function ($rootScope, $scope, $http, $timeout, $mdSidenav, $mdToast, $mdUtil, $mdBottomSheet, $log, $localForage, dataService) {
+
+        $scope.showSplash = false;
+        $localForage.getItem('visited').then(function (visited) {
+            if (visited === null) {
+                $localForage.setItem('visited', true);
+            } else {
+                console.log('user has visited this site before');
+            }
+            $scope.showSplash = (visited === null);
+        });
 
         $rootScope.buildToggler = function (navID) {
             var debounceFn = $mdUtil.debounce(function () {

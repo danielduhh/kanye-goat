@@ -23,13 +23,27 @@
 
     <link rel="stylesheet" href="app/styles/app.css">
     <link rel="stylesheet" href="app/styles/home.css">
+    <link rel="stylesheet" href="app/styles/splash.css">
+    <link rel="stylesheet" href="app/styles/vcr.css">
+
     <script src="./components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body>
+<body ng-controller="MainCtrl">
 
-<div layout="column" tabindex="-1" role="main" flex="" class="layout-column flex">
+<div id="splash" ng-class="{on: !showSplash}">
+    <!--<i class="material-icons">close</i>-->
+    <div class="intro">
+        Welcome to voteyeezy. We’re here to pay homage to our generations most influential artist. select your top 5 favorite songs and submit your vote. In the coming weeks we will start a bracket to determine what his biggest fans believe his best song is (or something like that);
+        <div class="open-app">
+            <md-button ng-click="showSplash = true;" class="md-raised">Vote Yeezy</md-button>
+        </div>
+    </div>
+</div>
 
-    <div id="MainCtrl" ng-controller="MainCtrl">
+<div ng-hide="!showSplash" ng-cloak="" layout="column" tabindex="-1" role="main" flex="" class="layout-column flex">
+
+    <div id="MainCtrl">
+
         <!-- Upper Nav Bar -->
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -41,7 +55,7 @@
                 </h2>
                 <span flex></span>
 
-                <md-button ng-disabled="voteLength === 0" ng-click="toggleRight()" class="md-icon-button" aria-label="Open sample menu">
+                <md-button ng-disabled="voteLength === 0" ng-click="toggleRight()" class="md-icon-button" aria-label="View application">
                     <i class="material-icons">done</i>
                 </md-button>
 
@@ -52,11 +66,11 @@
         <md-sidenav md-component-id="left" ng-cloak>
             <div ng-cloak>
                 <md-toolbar class="md-theme-light">
-                    <h1 class="md-toolbar-tools">Menu</h1>
+                    <h1 class="md-toolbar-tools">View Tracks By</h1>
                 </md-toolbar>
                 <md-content layout-padding>
-                    <a href="/#albums"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Albums</h1></a>
-                    <a href="/#songs"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Search</h1></a>
+                    <a href="/#albums"><h1 ng-click="closeNav('left')" class="warm-font md-toolbar-tools">Albums</h1></a>
+                    <a href="/#songs"><h1 ng-click="closeNav('left')" class="warm-font md-toolbar-tools">Search</h1></a>
                     <!--<a href="/#results"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Results</h1></a>-->
                 </md-content>
             </div>
@@ -75,9 +89,9 @@
                         </md-chip-template>
                     </md-chips>
 
-                    <div ng-show="voteLength> 0">
-                        <md-button ng-click="sendVotes()">Submit your Vote</md-button>
-                        <md-button ng-click="clearAllSongs()">Clear</md-button>
+                    <div class="text-center vote-submission" ng-show="voteLength> 0">
+                        <md-button class="md-raised" aria-label="Submit Votes" ng-click="sendVotes()">Submit your Vote</md-button>
+                        <md-button class="md-raised md-warn" aria-label="Clear Votes" ng-click="clearAllSongs()">Clear</md-button>
                     </div>
                 </md-content>
             </div>
@@ -86,6 +100,7 @@
         <md-content class="mainBody" ng-cloak>
             <div ng-view></div>
         </md-content>
+
     </div>
 
 </div>
@@ -101,8 +116,12 @@
 <script src="./components/angular-route/angular-route.js"></script>
 <script src="./components/jquery/dist/jquery.js"></script>
 <script src="./components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="./components/localforage/dist/localforage.min.js"></script>
+<script src="./components/angular-localforage/dist/angular-localForage.min.js"></script>
+
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>-->
-<script src="./components/underscore/underscore-min.js"></script>
+<!--<script src="./components/underscore/underscore-min.js"></script>-->
+
 <script src="./app/build/kanye.min.js"></script>
 
 </body>

@@ -1,7 +1,14 @@
-/* app css stylesheet */
+body {
+  font-family: VCR,Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+}
+
 #albums {
   position: relative;
   top: 65px;
+}
+
+.album-list-padding {
+  padding: 0 15px;
 }
 
 #songs {
@@ -30,6 +37,8 @@
 
 md-toolbar {
   position: fixed;
+  z-index: 5;
+  background-color: #1c1c1c !important;
 }
 
 .menu {
@@ -93,4 +102,22 @@ md-backdrop.md-opaque.md-default-theme, md-backdrop.md-opaque {
   bottom: 0;
   top: 70px;
   width: 100%;
+  z-index: 5;
+}
+
+.md-chips {
+  font-family: VCR,Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+md-chips.md-default-theme .md-chips, md-chips .md-chips {
+  box-shadow: none;
+}
+
+.warm-font {
+  color: rgb(255,87,34);
+}
+
+a.md-default-theme:not(.md-button):hover, a:not(.md-button):hover {
+  color: #7d7d7d;
 }

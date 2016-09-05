@@ -8,7 +8,7 @@
 }
 
 .song-list {
-    color:#000000;
+    color:#7d7d7d;
 }
 
 
@@ -77,3 +77,8 @@ background-color: rgb(255,87,34)
     position: fixed;
     bottom:0;
 }
+
+.vote-submission {
+    margin: 25px 0 0 0;
+}
+
