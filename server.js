@@ -22,6 +22,7 @@ firebase.initializeApp({
 
 // configuration =================
 
+app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
@@ -32,8 +33,9 @@ app.use(methodOverride());
 app.use('/api', api);
 
 // listen (start app with node server.js) ======================================
-app.listen(8000);
-console.log("App listening on port 8000");
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+});console.log("App listening on port " +  app.get('port'));
 
 // application -------------------------------------------------------------
 app.get('*',function(req,res){
