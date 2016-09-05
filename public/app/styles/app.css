@@ -129,3 +129,11 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label, md-input-container:not(.md-input-invalid).md-input-focused label{
   color: rgb(255,87,34);
 }
+
+md-checkbox.md-default-theme.md-checked .md-ink-ripple, md-checkbox.md-checked .md-ink-ripple {
+  color: rgb(255,87,34);
+}
+
+md-checkbox.md-default-theme.md-checked ._md-icon, md-checkbox.md-checked ._md-icon {
+  background-color: rgb(255,87,34);
+}
