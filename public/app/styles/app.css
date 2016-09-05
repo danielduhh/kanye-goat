@@ -121,3 +121,11 @@ md-chips.md-default-theme .md-chips, md-chips .md-chips {
 a.md-default-theme:not(.md-button):hover, a:not(.md-button):hover {
   color: #7d7d7d;
 }
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+   border-color: rgb(255,87,34);
+}
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label, md-input-container:not(.md-input-invalid).md-input-focused label{
+  color: rgb(255,87,34);
+}
