@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 var pg = require('../pg');
 var Q = require('q');
-const ip = require('ip');
+var get_ip = require('ipware')().get_ip;
 
 
 router.post('/songs', function(req,res,next){
     console.log('post to /songs');
 
-    var clientIp = ip.address();
+    var clientIp = get_ip(req).clientIp;
 
     // get mac address
     //getmac.getMac(function(err, macAddress){
