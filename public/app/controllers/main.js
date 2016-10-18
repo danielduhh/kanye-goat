@@ -1,7 +1,6 @@
 angular.module('myApp')
     .controller('MainCtrl', function ($rootScope, $scope, $http, $timeout, $mdSidenav, $mdToast, $mdUtil, $mdBottomSheet, $log, $localForage, dataService) {
 
-        $scope.showSplash = false;
         $localForage.getItem('visited').then(function (visited) {
             if (visited === null) {
                 $localForage.setItem('visited', true);
@@ -9,7 +8,11 @@ angular.module('myApp')
                 console.log('user has visited this site before');
             }
             $scope.showSplash = (visited === null);
+            $scope.showBody();
+
         });
+        $scope.readOnly = true;
+        $scope.maxVotes = 5;
 
         $rootScope.buildToggler = function (navID) {
             var debounceFn = $mdUtil.debounce(function () {
@@ -19,13 +22,19 @@ angular.module('myApp')
             return debounceFn;
         };
 
-        $rootScope.showSimpleToast = function(position, text) {
+        $rootScope.showSimpleToast = function(position, text, delay) {
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(text)
                     .position(position)
                     .hideDelay(3000)
             );
+        };
+
+        $scope.showBody = function (){
+            if(!$scope.showSplash) {
+                $("#mainBody").addClass('on');
+            }
         };
 
         $scope.toggleLeft = $rootScope.buildToggler('left');
@@ -41,6 +50,11 @@ angular.module('myApp')
         $scope.$on('song-vote', function (evt, song) {
             $scope.votes = song;
             $scope.voteLength = $scope.votes.length;
+
+            if($scope.voteLength > 5) $rootScope.showSimpleToast('bottom', "5 song vote limit per 24 hours!", 2500);
+
+            if($scope.voteLength === 5) $scope.toggleRight();
+
         });
 
         $scope.removeSong = function (song) {

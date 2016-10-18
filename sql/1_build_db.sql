@@ -31,7 +31,7 @@ end_date date
 create table song_votes(
 song_id int references song(id),
 round int references round(id),
-mac_address character varying,
+ip character varying,
 submission_time timestamp default current_timestamp
 );
 
@@ -191,6 +191,7 @@ INSERT INTO song (title,duration,album_id) VALUES (	'Lollipop (Remix) w/ Lil Way
 INSERT INTO song (title,duration,album_id) VALUES (	'Sanctified w/ Rick Ross'	,	'04:49'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 INSERT INTO song (title,duration,album_id) VALUES (	'Diamonds (Remix) w/ Rihanna'	,	'04:48'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 
+INSERT INTO round (label, round) VALUES ('preliminary', 1);
 /****
 
 SELECT * from song_votes;
@@ -201,7 +202,7 @@ SELECT * FROM ___yeezy_vote_song((SELECT floor(random()*(113-1)+2)::int),1);
 
 ****/
 
-CREATE OR REPLACE FUNCTION ___yeezy_vote_song(song_ids integer[], round_id integer, mac_address character varying)
+CREATE OR REPLACE FUNCTION ___yeezy_vote_song(song_ids integer[], round_id integer, ip character varying)
   RETURNS boolean AS
 $BODY$
 
@@ -218,7 +219,7 @@ $BODY$
 
  valid_round_id = plv8.execute("SELECT id FROM round WHERE id = $1", [round_id])[0].id;
  // number of votes in last 24 hours
- num_votes = plv8.execute("SELECT count(*)::int FROM song_votes WHERE mac_address = $1 AND now()-submission_time < interval '24 hours'", [mac_address])[0].count;
+ num_votes = plv8.execute("SELECT count(*)::int FROM song_votes WHERE ip = $1 AND now()-submission_time < interval '24 hours'", [ip])[0].count;
  votes_remaining = 5-num_votes;
 
  if (votes_remaining > 0){
@@ -230,7 +231,7 @@ $BODY$
 
 	  plv8.elog(NOTICE, 'Submitting vote: ' + ' index: ' + index + 'check:' + (index <= votes_remaining-1));
 
-	  submission = plv8.execute("INSERT INTO song_votes(song_id, round, mac_address) VALUES ($1, $2, $3) RETURNING submission_time", [valid_song_id, valid_round_id, mac_address])
+	  submission = plv8.execute("INSERT INTO song_votes(song_id, round, ip) VALUES ($1, $2, $3) RETURNING submission_time", [valid_song_id, valid_round_id, ip])
 
 	} else {
 
@@ -240,7 +241,7 @@ $BODY$
    });
 
    } else {
-	time_remaining = plv8.execute("select interval '24 hours' - (select now() - (select submission_time from song_votes where mac_address = $1 order by submission_time desc limit 1)) as time_remaining", [mac_address])[0]['time_remaining'];
+	time_remaining = plv8.execute("select interval '24 hours' - (select now() - (select submission_time from song_votes where ip = $1 order by submission_time desc limit 1)) as time_remaining", [ip])[0]['time_remaining'];
 	hours = plv8.execute("SELECT EXTRACT(HOUR FROM interval '24 hours' - (select now() - (select submission_time from song_votes order by submission_time desc limit 1)))")[0]['date_part'];
 	minutes = plv8.execute("SELECT EXTRACT(MINUTE FROM interval '24 hours' - (select now() - (select submission_time from song_votes order by submission_time desc limit 1)))")[0]['date_part'];
 

@@ -26,7 +26,7 @@ app.use('/api', api);
 // listen (start app with node server.js) ======================================
 app.listen((process.env.PORT || 5000), function() {
     console.log('Node app is running on port', (process.env.PORT || 5000));
-});console.log("App listening on port " +  (process.env.PORT || 5000));
+});
 
 // application -------------------------------------------------------------
 app.use(function(req, res){

@@ -2,6 +2,18 @@ body {
   font-family: VCR,Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
 }
 
+.md-button.md-default-theme.md-warn, .md-button.md-warn {
+  color: #b58c6e;
+}
+
+#mainBody{
+  display: none;
+}
+
+#mainBody.on{
+  display: block;
+}
+
 #albums {
   position: relative;
   top: 65px;
@@ -81,6 +93,10 @@ md-toolbar {
   margin-left: auto;
 }
 
+.chips-container {
+  padding: 10px;
+}
+
 :focus {
   outline: none;
 }
@@ -115,7 +131,7 @@ md-chips.md-default-theme .md-chips, md-chips .md-chips {
 }
 
 .warm-font {
-  color: rgb(255,87,34);
+  color: #b58c6e;
 }
 
 a.md-default-theme:not(.md-button):hover, a:not(.md-button):hover {
@@ -123,17 +139,36 @@ a.md-default-theme:not(.md-button):hover, a:not(.md-button):hover {
 }
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-   border-color: rgb(255,87,34);
+   border-color: #b58c6e;
 }
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label, md-input-container:not(.md-input-invalid).md-input-focused label{
-  color: rgb(255,87,34);
+  color: #b58c6e;
 }
 
 md-checkbox.md-default-theme.md-checked .md-ink-ripple, md-checkbox.md-checked .md-ink-ripple {
-  color: rgb(255,87,34);
+  color: #b58c6e;
 }
 
 md-checkbox.md-default-theme.md-checked ._md-icon, md-checkbox.md-checked ._md-icon {
-  background-color: rgb(255,87,34);
+  background-color: #b58c6e;
+}
+
+[role="button"] {
+  cursor: default;
+}
+
+md-list-item {
+  cursor: default !important;
+}
+
+ /* clear button */
+.md-button.md-default-theme.md-warn.md-raised, .md-button.md-warn.md-raised, .md-button.md-default-theme.md-warn.md-fab, .md-button.md-warn.md-fab {
+  color: rgb(255,255,255);
+  background-color: #b58c6e;
+}
+
+.md-button.md-default-theme.md-warn.md-raised:not([disabled]):hover, .md-button.md-warn.md-raised:not([disabled]):hover, .md-button.md-default-theme.md-warn.md-fab:not([disabled]):hover, .md-button.md-warn.md-fab:not([disabled]):hover {
+  color: rgb(255,255,255);
+  background-color: #b58c6e;
 }

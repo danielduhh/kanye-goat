@@ -33,17 +33,17 @@
 <div id="splash" ng-class="{on: showSplash}">
     <!--<i class="material-icons">close</i>-->
     <div class="intro">
-        Welcome to voteyeezy. We’re here to pay homage to our generation's most influential artist. What is Kanye's best song? You decide.
+        Welcome to Yeezy Vote - <br> brought to you by <a href="http://www.auxcordkings.com" target="_blank">auxcordkings</a>. <br> We’re here to pay homage to our generation's most influential artist. What is Kanye's best song? You decide.
         <br>
         <br>
-        Select your top 5 songs and submit your vote. A bracket will be created  from the collected votes to determine the favorite among favorites.
+        Select your top 5 songs and submit your vote. Check back to see how your favorites stack up against the ultimate ranking of Kanye's genius.
         <div class="open-app">
-            <md-button ng-click="showSplash = false;" class="md-raised">Vote Yeezy</md-button>
+            <md-button ng-click="showSplash = false; showBody();" class="md-raised">Vote Yeezy</md-button>
         </div>
     </div>
 </div>
 
-<div ng-hide="showSplash" ng-cloak="" layout="column" tabindex="-1" role="main" flex="" class="layout-column flex">
+<div id="mainBody" ng-cloak layout="column" tabindex="-1" role="main" flex="" class="layout-column flex">
 
     <div id="MainCtrl">
 
@@ -54,11 +54,14 @@
                     <i class="material-icons">menu</i>
                 </md-button>
                 <h2>
-                    <span>Yeezy</span>
+                    <span>Yeezy Vote</span>
                 </h2>
                 <span flex></span>
 
-                <md-button ng-disabled="voteLength === 0" ng-click="toggleRight()" class="md-icon-button" aria-label="View application">
+                <!-- Vote counter -->
+                <div ng-click="toggleRight()" ng-hide="voteLength===0 || voteLength > 5">{{voteLength}}/5</div>
+
+                <md-button ng-disabled="voteLength === 0 || voteLength > 5" ng-click="toggleRight()" class="md-icon-button" aria-label="View application">
                     <i class="material-icons">done</i>
                 </md-button>
 
@@ -85,8 +88,8 @@
                 <md-toolbar class="md-theme-light">
                     <h1 class="md-toolbar-tools">Selections</h1>
                 </md-toolbar>
-                <md-content>
-                    <md-chips ng-model="votes" readonly="true" md-enable-chip-edit="false" md-on-remove="removeSong($chip)">
+                <md-content class="chips-container">
+                    <md-chips ng-model="votes" readonly="readOnly" md-enable-chip-edit="false" md-on-remove="removeSong($chip)" md-max-chips="maxVotes">
                         <md-chip-template>
                             <strong>{{$chip.label || $chip.title}}</strong>
                         </md-chip-template>
