@@ -32,7 +32,7 @@ create table song_votes(
 song_id int references song(id),
 round int references round(id),
 ip character varying,
-submission_time timestamp default current_timestamp
+submission_time timestamp with time zone default current_timestamp
 );
 
 -- select * from round_song_votes
@@ -210,7 +210,8 @@ INSERT INTO song (title,duration,album_id) VALUES (	'Saint Pablo'	,	'6:12'	, (SE
 
 
 
-INSERT INTO round (label, round) VALUES ('preliminary', 1);
+INSERT INTO round (label, round) VALUES ('test', 0);
+INSERT INTO round (label, round, start_date) VALUES ('preliminary', 1, '2016-10-18');
 
 CREATE OR REPLACE FUNCTION ___yeezy_vote_song(song_ids integer[], round_id integer, ip character varying)
   RETURNS boolean AS

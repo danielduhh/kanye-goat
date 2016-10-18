@@ -18,7 +18,7 @@ router.post('/songs', function(req,res,next){
         var preparedStatement = {
             name: "vote",
             text: sql,
-            values:[req.body.song, 1, clientIp]
+            values:[req.body.song, 2, clientIp]
         };
 
         pg.queryDeferred(preparedStatement)
