@@ -213,6 +213,10 @@ INSERT INTO song (title,duration,album_id) VALUES (	'Saint Pablo'	,	'6:12'	, (SE
 INSERT INTO round (label, round) VALUES ('test', 0);
 INSERT INTO round (label, round, start_date) VALUES ('preliminary', 1, '2016-10-18');
 
+-- Function: ___yeezy_vote_song(integer[], integer, character varying)
+
+-- DROP FUNCTION ___yeezy_vote_song(integer[], integer, character varying);
+
 CREATE OR REPLACE FUNCTION ___yeezy_vote_song(song_ids integer[], round_id integer, ip character varying)
   RETURNS boolean AS
 $BODY$
@@ -230,7 +234,7 @@ $BODY$
 
  valid_round_id = plv8.execute("SELECT id FROM round WHERE id = $1", [round_id])[0].id;
  // number of votes in last 24 hours
- num_votes = plv8.execute("SELECT count(*)::int FROM song_votes WHERE ip = $1 AND now()-submission_time < interval '24 hours'", [ip])[0].count;
+ num_votes = plv8.execute("SELECT count(*)::int FROM song_votes WHERE ip = $1 AND round = $2 AND now()-submission_time < interval '24 hours'", [ip, round_id])[0].count;
  votes_remaining = 5-num_votes;
 
  if (votes_remaining > 0){
