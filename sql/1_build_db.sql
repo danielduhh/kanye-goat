@@ -59,12 +59,6 @@ and sv.song_id = s.id
 and sv.round = r.id
 group by a.id, r.label;
 
-/**create view view_song_votes as
-select s.title as song_title, a.title as album_title, a.date_released, s.artist, sv.votes, r.label
-from album a, song s, song_votes sv left join round r on sv.round = r.id
-where s.album_id = a.id
-and sv.song_id = s.id;**/
-
 INSERT INTO ROUND (round,label,start_date) VALUES (1,'Prelimiary Round', '2015/11/01');
 
 INSERT INTO album (title, date_released,duration) VALUES (	'My Beautiful Dark Twisted Fantasy'	,	'10/22/2010'	,	'1:08:36'	);
@@ -76,6 +70,9 @@ INSERT INTO album (title, date_released,duration) VALUES (	'Graduation'	,	'9/11/
 INSERT INTO album (title, date_released,duration) VALUES (	'Yeezus'	,	'6/18/2013'	,	'0:40:01'	);
 INSERT INTO album (title, date_released,duration) VALUES (	'Watch The Throne'	,	'8/8/2011'	,	'0:46:02'	);
 INSERT INTO album (title, date_released,duration) VALUES (	'808s & Heartbreak'	,	'11/24/2008'	,	'52:01:00'	);
+INSERT INTO album (title, date_released,duration) VALUES (	'The Life of Pablo'	,	'02/14/2016'	,	'66:01:00'	);
+
+
 
 INSERT INTO song (title,duration,album_id) VALUES (	'Dark Fantasy'	,	'04:41'	, (SELECT id FROM album WHERE title = 	'My Beautiful Dark Twisted Fantasy'	));
 INSERT INTO song (title,duration,album_id) VALUES (	'Gorgeous'	,	'05:57'	, (SELECT id FROM album WHERE title = 	'My Beautiful Dark Twisted Fantasy'	));
@@ -190,17 +187,30 @@ INSERT INTO song (title,duration,album_id) VALUES (	'Live Fast, Die Young w/ Ric
 INSERT INTO song (title,duration,album_id) VALUES (	'Lollipop (Remix) w/ Lil Wayne'	,	'04:27'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 INSERT INTO song (title,duration,album_id) VALUES (	'Sanctified w/ Rick Ross'	,	'04:49'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
 INSERT INTO song (title,duration,album_id) VALUES (	'Diamonds (Remix) w/ Rihanna'	,	'04:48'	, (SELECT id FROM album WHERE title = 	'Non-Album/Features'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Ultralight Beam'	,	'5:11'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Father Stretch My Hands Pt. 1'	,	'2:12'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Pt. 2'	,	'2:07'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Famous'	,	'3:11'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Feedback'	,	'2:23'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Low Lights'	,	'2:08'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Highlights'	,	'3:14'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Freestyle 4'	,	'2:00'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'I Love Kanye'	,	'0:44'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Waves'	,	'2:56'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'FML'	,	'3:49'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Real Friends'	,	'4:04'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Wolves'	,	'4:53'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Frank''s Track'	,	'0:37'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Siiiiiiiiilver Surffffeeeeer Intermission'	,	'0:55'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'30 Hours'	,	'5:14'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'No More Parties in LA'	,	'6:04'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Facts (Charlie Heat Version)'	,	'3:15'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Fade'	,	'3:08'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+INSERT INTO song (title,duration,album_id) VALUES (	'Saint Pablo'	,	'6:12'	, (SELECT id FROM album WHERE title = 	'The Life of Pablo'	));
+
+
 
 INSERT INTO round (label, round) VALUES ('preliminary', 1);
-/****
-
-SELECT * from song_votes;
-SELECT * FROM ___yeezy_vote_song(ARRAY[(SELECT floor(random()*(113-1)+2)::int)], 1, (SELECT floor(random()*(3000-1)+2)::char));
-
-SELECT * FROM ___yeezy_vote_song((SELECT floor(random()*(113-1)+2)::int),1);
-SELECT * FROM ___yeezy_vote_song((SELECT floor(random()*(113-1)+2)::int),1);
-
-****/
 
 CREATE OR REPLACE FUNCTION ___yeezy_vote_song(song_ids integer[], round_id integer, ip character varying)
   RETURNS boolean AS
