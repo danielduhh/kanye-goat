@@ -25,7 +25,5 @@ angular.module('myApp', [
         $window.ga('create', 'UA-85990014-1', 'auto');
 
         // track pageview on state change
-        $rootScope.$on('$stateChangeSuccess', function (event) {
-            $window.ga('send', 'pageview', $location.path());
-        });
+        $window.ga('send', 'pageview', $location.path());
     });
