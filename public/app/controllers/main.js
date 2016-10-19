@@ -75,6 +75,25 @@ angular.module('myApp')
             }
         };
 
+        $scope.gaAUXCORD = function (){
+            // track google analytics event
+            ga('send', {
+                hitType:'event',
+                eventCategory: 'Link',
+                eventAction: 'www.auxcordkings.com'
+            });
+        };
+
+        $scope.gaGITHUB = function (location) {
+            // track google analytics event
+            ga('send', {
+                hitType:'event',
+                eventCategory: 'Link',
+                eventAction: 'www.github.com/danielduhh',
+                eventLabel: location
+            });
+        };
+
         $scope.toggleLeft = $rootScope.buildToggler('left');
         $scope.toggleRight = $rootScope.buildToggler('right');
 

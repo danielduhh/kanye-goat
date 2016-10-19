@@ -86,10 +86,11 @@
 
     <div class="intro">
         <div class="icon-yeezy icon-YeezyVoteBlack intro-logo"></div>
-        Welcome to Yeezy Vote - <br> brought to you by <a href="http://www.auxcordkings.com" target="_blank">auxcordkings</a>. <br> We’re here to pay homage to our generation's most influential artist. What is Kanye's best song? You decide.
+        Welcome to Yeezy Vote - <br> brought to you by <a ng-click="gaAUXCORD()" href="http://www.auxcordkings.com" target="_blank">auxcordkings</a>. <br> We’re here to pay homage to our generation's most influential artist. What is Kanye's best song? You decide.
         <br>
         <br>
         Select your top 5 songs and submit your vote. Check back to see how your favorites stack up against the ultimate ranking of Kanye's genius.
+        <div class="github-container"><a ng-click="gaGITHUB('splash')" target="_blank" href="https://github.com/danielduhh"><img class="github-logo" src="images/GitHub-Mark-Light-32px.png"></a></div>
         <div class="open-app">
             <md-button ng-click="showSplash = false; showBody();" class="md-raised">Vote</md-button>
         </div>
@@ -130,6 +131,8 @@
                     <a href="/#albums"><h1 ng-click="closeNav('left', 'album')" class="warm-font md-toolbar-tools">Albums</h1></a>
                     <a href="/#songs"><h1 ng-click="closeNav('left', 'search')" class="warm-font md-toolbar-tools">Search</h1></a>
                     <!--<a href="/#results"><h1 ng-click="closeNav('left')" class="md-toolbar-tools">Results</h1></a>-->
+
+                    <div class="github-container-menu"><a ng-click="gaGITHUB('left-menu')" target="_blank" href="https://github.com/danielduhh"><img class="github-logo" src="images/GitHub-Mark-32px.png"></a></div>
                 </md-content>
             </div>
         </md-sidenav>

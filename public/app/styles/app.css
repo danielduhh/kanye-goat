@@ -114,6 +114,19 @@ md-toolbar {
   font-size: 28px;
 }
 
+.github-container {
+  padding: 10px 0 0 0;
+}
+
+.github-container-menu {
+  padding: 10px 16px 0 16px;
+}
+
+.github-logo {
+  height: 20px;
+  width: 20px;
+}
+
 md-sidenav md-content {
   top: 65px;
 }
