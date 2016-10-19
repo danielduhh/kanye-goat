@@ -31,10 +31,10 @@ angular.module('myApp')
             $rootScope.$broadcast('song-vote', selectedSongs);
 
             // track google analytics event
-            ga('select', {
+            ga('send', {
                 hitType:'event',
-                eventCategory: 'Select',
-                eventAction: 'Song Checkbox Select (Album View)',
+                eventCategory: 'Checkbox',
+                eventAction: 'Song Select (Album View)',
                 eventLabel: song.label
             });
         };

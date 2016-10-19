@@ -29,10 +29,10 @@ angular.module('myApp')
             $rootScope.$broadcast('song-vote', selectedSongs);
 
             // track google analytics event
-            ga('select', {
+            ga('send', {
                 hitType:'event',
-                eventCategory: 'Select',
-                eventAction: 'Song Checkbox Select (Song View)',
+                eventCategory: 'Checkbox',
+                eventAction: 'Song Select (Song View)',
                 eventLabel: song.label
             });
 
@@ -41,7 +41,7 @@ angular.module('myApp')
         $scope.$watch('searchText', function() {
             console.log('Search key was entered');
             // track google analytics event
-            ga('search', {
+            ga('send', {
                 hitType:'event',
                 eventCategory: 'Search',
                 eventAction: 'Input Search',
@@ -51,7 +51,7 @@ angular.module('myApp')
 
         $scope.logSearchEvent = function (){
             // track google analytics event
-            ga('select', {
+            ga('send', {
                 hitType:'event',
                 eventCategory: 'Search',
                 eventAction: 'Input Select',

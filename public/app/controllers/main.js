@@ -27,9 +27,9 @@ angular.module('myApp')
             var debounceFn = $mdUtil.debounce(function () {
                 $mdSidenav(navID).toggle()
                 // track google analytics event
-                ga('menu-toggle', {
+                ga('send', {
                     hitType:'event',
-                    eventCategory: 'Select Navbar',
+                    eventCategory: ' Navbar',
                     eventAction: 'Menu Toggle',
                     eventLabel: navID
                 });
@@ -62,7 +62,7 @@ angular.module('myApp')
             $mdSidenav(navId).close();
             ga('select', {
                 hitType:'event',
-                eventCategory: 'Select Navbar',
+                eventCategory: 'Navbar',
                 eventAction: 'Change View',
                 eventLabel: view
             });
@@ -110,7 +110,7 @@ angular.module('myApp')
 
                     $rootScope.votes.forEach(function (v, i) {
                         // track google analytics event
-                        ga('vote', {
+                        ga('send', {
                             hitType:'event',
                             eventCategory: 'Vote',
                             eventAction: 'Song Vote',
@@ -129,7 +129,7 @@ angular.module('myApp')
                     $scope.clearAllSongs();
 
                     // track google analytics event
-                    ga('vote', {
+                    ga('send', {
                         hitType:'event',
                         eventCategory: 'Error',
                         eventAction: 'POST Vote Error',
@@ -146,9 +146,9 @@ angular.module('myApp')
             // close right navigation
             $mdSidenav('right').close();
             // track google analytics event
-            ga('select', {
+            ga('send', {
                 hitType:'event',
-                eventCategory: 'Select Navbar',
+                eventCategory: 'Navbar',
                 eventAction: 'Clear All Selections',
                 eventLabel: 'Right Menu'
             });
