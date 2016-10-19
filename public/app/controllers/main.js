@@ -5,8 +5,24 @@ angular.module('myApp')
         $localForage.getItem('visited').then(function (visited) {
             if (visited === null) {
                 $localForage.setItem('visited', true);
+
+                // track google analytics event
+                ga('send', {
+                    hitType:'event',
+                    eventCategory: 'User',
+                    eventAction: 'New User'
+                });
+
             } else {
                 console.log('user has visited this site before');
+
+                // track google analytics event
+                ga('send', {
+                    hitType:'event',
+                    eventCategory: 'User',
+                    eventAction: 'Repeat User'
+                });
+
             }
             $scope.showSplash = (visited === null);
             $scope.showBody();
@@ -29,7 +45,7 @@ angular.module('myApp')
                 // track google analytics event
                 ga('send', {
                     hitType:'event',
-                    eventCategory: ' Navbar',
+                    eventCategory: 'Navbar',
                     eventAction: 'Menu Toggle',
                     eventLabel: navID
                 });
@@ -49,6 +65,13 @@ angular.module('myApp')
         $scope.showBody = function (){
             if(!$scope.showSplash) {
                 $("#mainBody").addClass('on');
+
+                // track google analytics event
+                ga('send', {
+                    hitType:'event',
+                    eventCategory: 'User',
+                    eventAction: 'Vote Button (Enter Site) Select'
+                });
             }
         };
 
@@ -128,13 +151,6 @@ angular.module('myApp')
                     $rootScope.showSimpleToast('bottom', err.data.message);
                     $scope.clearAllSongs();
 
-                    // track google analytics event
-                    ga('send', {
-                        hitType:'event',
-                        eventCategory: 'Error',
-                        eventAction: 'POST Vote Error',
-                        eventLabel: err.data.message
-                    });
                 })
         };
 

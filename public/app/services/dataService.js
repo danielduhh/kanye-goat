@@ -21,8 +21,24 @@ var app = angular.module("myApp")
 
                     deferred.resolve(service.albumSongHash);
 
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/all-albums Success',
+                        eventLabel: response.status
+                    });
+
                 }, function (response) {
                     deferred.reject(response);
+
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/all-albums Error',
+                        eventLabel: response.status + ": " + response.data.message
+                    });
                 });
 
             return deferred.promise;
@@ -45,10 +61,24 @@ var app = angular.module("myApp")
 
                     deferred.resolve(service.all_songs);
 
-
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/songs Success',
+                        eventLabel: response.status
+                    });
 
                 }, function (response){
                     deferred.reject(response);
+
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/songs Error',
+                        eventLabel: response.status + ": " + response.data.message
+                    });
                 });
 
             return deferred.promise;
@@ -62,8 +92,24 @@ var app = angular.module("myApp")
                 then(function (response) {
                     deferred.resolve(response.data);
 
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/song-votes Success',
+                        eventLabel: response.status
+                    });
+
                 }, function (response){
                     deferred.reject(response);
+
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/song-votes Error',
+                        eventLabel: response.status + ": " + response.data.message
+                    });
                 });
 
             return deferred.promise;
@@ -77,8 +123,24 @@ var app = angular.module("myApp")
                 then(function (response) {
                     deferred.resolve(response.data);
 
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/album-votes Success',
+                        eventLabel: response.status
+                    });
+
                 }, function (response){
                     deferred.reject(response);
+
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/album-votes Error',
+                        eventLabel: response.status + ": " + response.data.message
+                    });
                 });
 
             return deferred.promise;
@@ -93,8 +155,25 @@ var app = angular.module("myApp")
             $http.post('api/songs',data, {headers: {'Content-type': 'application/json'}})
                 .then(function (response) {
                     deferred.resolve(response);
+
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'GET api/album-votes Success',
+                        eventLabel: response.status
+                    });
+
                 }, function (response){
                     deferred.reject(response);
+
+                    // track google analytics event
+                    ga('send', {
+                        hitType:'event',
+                        eventCategory: 'API',
+                        eventAction: 'POST api/songs Error',
+                        eventLabel: response.status + ": " + response.data.message
+                    });
                 });
 
             return deferred.promise;

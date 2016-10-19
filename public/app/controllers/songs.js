@@ -28,13 +28,15 @@ angular.module('myApp')
             $rootScope.votes = selectedSongs;
             $rootScope.$broadcast('song-vote', selectedSongs);
 
-            // track google analytics event
-            ga('send', {
-                hitType:'event',
-                eventCategory: 'Checkbox',
-                eventAction: 'Song Select (Song View)',
-                eventLabel: song.label
-            });
+            if(song.selected) {
+                // track google analytics event
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'Checkbox',
+                    eventAction: 'Song Select (Song View)',
+                    eventLabel: song.label
+                });
+            }
 
         };
 
