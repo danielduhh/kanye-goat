@@ -5,7 +5,7 @@
     -webkit-transition: all .5s ease .3s;
     -ms-transition: all .5s ease .3s;
     transition: all .5s ease .3s;
-    top: -100vh;
+    top: -110vh;
     height: 100vh;
     width:100%
 }
@@ -36,6 +36,6 @@
 }
 
 #splash .intro .open-app{
-    margin: 50px 0 0 0;
+    margin: 40px 0 0 0;
     text-align: center;
 }

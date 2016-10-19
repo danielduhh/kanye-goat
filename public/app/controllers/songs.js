@@ -28,6 +28,35 @@ angular.module('myApp')
             $rootScope.votes = selectedSongs;
             $rootScope.$broadcast('song-vote', selectedSongs);
 
+            // track google analytics event
+            ga('select', {
+                hitType:'event',
+                eventCategory: 'Select',
+                eventAction: 'Song Checkbox Select (Song View)',
+                eventLabel: song.label
+            });
+
+        };
+
+        $scope.$watch('searchText', function() {
+            console.log('Search key was entered');
+            // track google analytics event
+            ga('search', {
+                hitType:'event',
+                eventCategory: 'Search',
+                eventAction: 'Input Search',
+                eventLabel: $scope.searchText
+            });
+        });
+
+        $scope.logSearchEvent = function (){
+            // track google analytics event
+            ga('select', {
+                hitType:'event',
+                eventCategory: 'Search',
+                eventAction: 'Input Select',
+                eventLabel: 'Search'
+            });
         };
 
         $scope.$on('clear-all-selections', function () {

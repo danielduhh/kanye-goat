@@ -10,7 +10,7 @@ angular.module('myApp')
 
         $scope.toggleRight = $rootScope.buildToggler('right');
 
-        $scope.processSelection = function() {
+        $scope.processSelection = function(song) {
 
             // checkboxes between song and album ctrl need to be synchronized
             // so notify songctrl of a selection
@@ -29,6 +29,14 @@ angular.module('myApp')
 
             $rootScope.votes = selectedSongs;
             $rootScope.$broadcast('song-vote', selectedSongs);
+
+            // track google analytics event
+            ga('select', {
+                hitType:'event',
+                eventCategory: 'Select',
+                eventAction: 'Song Checkbox Select (Album View)',
+                eventLabel: song.label
+            });
         };
 
         $scope.$on('song-remove', function(evt, song){

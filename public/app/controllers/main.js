@@ -1,5 +1,6 @@
 angular.module('myApp')
-    .controller('MainCtrl', function ($rootScope, $scope, $http, $timeout, $mdSidenav, $mdToast, $mdUtil, $mdBottomSheet, $log, $localForage, dataService) {
+    .controller('MainCtrl', function ($rootScope, $scope, $http, $timeout, $mdSidenav, $mdToast, $mdUtil,
+                                      $mdBottomSheet, $log, $localForage, dataService, $mdMedia) {
 
         $localForage.getItem('visited').then(function (visited) {
             if (visited === null) {
@@ -11,13 +12,27 @@ angular.module('myApp')
             $scope.showBody();
 
         });
+
+        $scope.centerNavLogo = $mdMedia('gt-sm');
+
+        $(window).resize(function(){
+            $scope.centerNavLogo = $mdMedia('gt-sm');
+        });
+
+
         $scope.readOnly = true;
         $scope.maxVotes = 5;
 
         $rootScope.buildToggler = function (navID) {
             var debounceFn = $mdUtil.debounce(function () {
-                $mdSidenav(navID)
-                    .toggle()
+                $mdSidenav(navID).toggle()
+                // track google analytics event
+                ga('menu-toggle', {
+                    hitType:'event',
+                    eventCategory: 'Select Navbar',
+                    eventAction: 'Menu Toggle',
+                    eventLabel: navID
+                });
             }, 200);
             return debounceFn;
         };
@@ -43,8 +58,15 @@ angular.module('myApp')
         $scope.votes = [];
         $scope.voteLength = 0;
 
-        $scope.closeNav = function (navId) {
-            $mdSidenav(navId).close()
+        $scope.closeNav = function (navId, view) {
+            $mdSidenav(navId).close();
+            ga('select', {
+                hitType:'event',
+                eventCategory: 'Select Navbar',
+                eventAction: 'Change View',
+                eventLabel: view
+            });
+
         };
 
         $scope.$on('song-vote', function (evt, song) {
@@ -79,12 +101,22 @@ angular.module('myApp')
             var voteIds = [];
 
             $rootScope.votes.forEach(function (v, i) {
-                voteIds.push(v.id)
+                voteIds.push(v.id);
             });
 
             var promise = dataService.vote(voteIds);
             promise
                 .then(function (res) {
+
+                    $rootScope.votes.forEach(function (v, i) {
+                        // track google analytics event
+                        ga('vote', {
+                            hitType:'event',
+                            eventCategory: 'Vote',
+                            eventAction: 'Song Vote',
+                            eventLabel: v.label
+                        });
+                    });
                     // close nav bar and give success message
                     $scope.closeNav('right');
                     $rootScope.showSimpleToast('bottom', 'Thanks for your vote!');
@@ -95,6 +127,14 @@ angular.module('myApp')
                     // show error
                     $rootScope.showSimpleToast('bottom', err.data.message);
                     $scope.clearAllSongs();
+
+                    // track google analytics event
+                    ga('vote', {
+                        hitType:'event',
+                        eventCategory: 'Error',
+                        eventAction: 'POST Vote Error',
+                        eventLabel: err.data.message
+                    });
                 })
         };
 
@@ -105,6 +145,13 @@ angular.module('myApp')
             $rootScope.$broadcast('clear-all-selections');
             // close right navigation
             $mdSidenav('right').close();
+            // track google analytics event
+            ga('select', {
+                hitType:'event',
+                eventCategory: 'Select Navbar',
+                eventAction: 'Clear All Selections',
+                eventLabel: 'Right Menu'
+            });
         };
     });
 
