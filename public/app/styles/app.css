@@ -101,6 +101,14 @@ md-toolbar {
   outline: none;
 }
 
+.nav-logo {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 15px;
+  font-size: 24px;
+}
+
 md-sidenav md-content {
   top: 65px;
 }

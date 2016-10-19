@@ -66,20 +66,22 @@
     <link rel="stylesheet" href="app/styles/home.css">
     <link rel="stylesheet" href="app/styles/splash.css">
     <link rel="stylesheet" href="app/styles/vcr.css">
+    <link rel="stylesheet" href="app/styles/style.css">
 
     <script src="./components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="MainCtrl">
 
 <div id="splash" ng-class="{on: showSplash}">
-    <!--<i class="material-icons">close</i>-->
+
     <div class="intro">
+        <div class="icon-yeezy icon-YeezyVoteBlack intro-logo"></div>
         Welcome to Yeezy Vote - <br> brought to you by <a href="http://www.auxcordkings.com" target="_blank">auxcordkings</a>. <br> We’re here to pay homage to our generation's most influential artist. What is Kanye's best song? You decide.
         <br>
         <br>
         Select your top 5 songs and submit your vote. Check back to see how your favorites stack up against the ultimate ranking of Kanye's genius.
         <div class="open-app">
-            <md-button ng-click="showSplash = false; showBody();" class="md-raised">Vote Yeezy</md-button>
+            <md-button ng-click="showSplash = false; showBody();" class="md-raised">Vote</md-button>
         </div>
     </div>
 </div>
@@ -90,13 +92,12 @@
 
         <!-- Upper Nav Bar -->
         <md-toolbar>
+            <i class="nav-logo icon-yeezy icon-YeezyVoteBlack"></i>
             <div class="md-toolbar-tools">
                 <md-button ng-click="toggleLeft()" class="md-icon-button md-button md-ink-ripple">
                     <i class="material-icons">menu</i>
                 </md-button>
-                <h2>
-                    <span>Yeezy Vote</span>
-                </h2>
+                    <!--<span>Yeezy Vote</span>-->
                 <span flex></span>
 
                 <!-- Vote counter -->
