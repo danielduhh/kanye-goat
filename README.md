@@ -1,44 +1,47 @@
-### Install Dependencies
+# Yeezy Vote!
+
+We’re here to pay homage to our generation's most influential artist. What is Kanye's best song? You decide. 
+Select your top 5 songs and submit your vote. Check back to see how your favorites stack up against the ultimate ranking of Kanye's genius.
+
+Find any bugs? Want to add tracks? Please log your issues [here](https://github.com/danielduhh/kanye-goat/issues).
+
+
+
+# Development
+#### Install Dependencies
 
 We have three kinds of dependencies in this project: tools, database and angular framework code.  The tools help
 us manage and test the application.
 
-* We get the tools we depend upon via `npm`, the [node package manager][npm].
-* We get the angular code via `bower`, a [client-side code package manager][bower].
-* We create the postgres DB via [1_build_db.sql](app/sql/1_build_db)
+* Get the libraries we depend upon via `npm` & the angular code via `bower`
+* Create the postgres DB via [1_build_db.sql](sql/sql/1_build_db)
 
-We have preconfigured `npm` to automatically run `bower` so we can simply do:
+We have preconfigured `npm` to automatically run `bower` simply run:
 
 ```
 npm install
 ```
 
-Behind the scenes this will also call `bower install`.  You should find that you have two new
-folders in your project.
+Two new folders will appear in your project
 
 * `node_modules` - contains the npm packages for the tools we need
-* `app/bower_components` - contains the angular framework files
+* `public/components` - contains the angular framework files
 
-*Note that the `bower_components` folder would normally be installed in the root folder but
-angular-seed changes this location through the `.bowerrc` file.  Putting it in the app folder makes
-it easier to serve the files by a webserver.*
-
-### Create Postgres DB
+#### Create Postgres DB
 * Run script [1_build_db.sql](app/sql/1_build_db.sql)
 * Add [settings file](settings-example.js)
 
-### Run the Application
+#### Run the Application
 
-We have preconfigured the project with a simple development web server.  The simplest way to start
-this server is:
+Run the web server
 
 ```
 npm start
 ```
 
 ### Development
-Watch for changes and build all js files into app/build/kanye.min.js
+Watch for changes and build all js files into _public/app/build/kanye.min.js_
 
 ```
-grunt 
+grunt build watch
 ```
