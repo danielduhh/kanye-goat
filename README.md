@@ -28,7 +28,7 @@ Two new folders will appear in your project
 * `public/components` - contains the angular framework files
 
 #### Create Postgres DB
-* Run script [1_build_db.sql](app/sql/1_build_db.sql)
+* Run script [1_build_db.sql](sql/1_build_db.sql)
 * Add [settings file](settings-example.js)
 
 #### Run the Application
