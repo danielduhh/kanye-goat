@@ -30,15 +30,18 @@ angular.module('myApp')
             $rootScope.votes = selectedSongs;
             $rootScope.$broadcast('song-vote', selectedSongs);
 
-            if(song.selected) {
-                // track google analytics event
-                ga('send', {
-                    hitType: 'event',
-                    eventCategory: 'Checkbox',
-                    eventAction: 'Song Select (Album View)',
-                    eventLabel: song.label
-                });
+            if(typeof song === "object") {
+                if (song.selected) {
+                    // track google analytics event
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Checkbox',
+                        eventAction: 'Song Select (Album View)',
+                        eventLabel: song.label
+                    });
+                }
             }
+
         };
 
         $scope.$on('song-remove', function(evt, song){

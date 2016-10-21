@@ -2,8 +2,6 @@ angular.module('myApp')
 
     .controller('SongsCtrl', function ($scope, $http, $rootScope, dataService) {
 
-        // TODO collect & show a list of selections somewhere
-
         $scope.albumSongHash = {};
         $scope.all_songs = [];
         $scope.searchText = '';
@@ -28,14 +26,16 @@ angular.module('myApp')
             $rootScope.votes = selectedSongs;
             $rootScope.$broadcast('song-vote', selectedSongs);
 
-            if(song.selected) {
-                // track google analytics event
-                ga('send', {
-                    hitType: 'event',
-                    eventCategory: 'Checkbox',
-                    eventAction: 'Song Select (Song View)',
-                    eventLabel: song.label
-                });
+            if(typeof song === "object"){
+                if(song.selected) {
+                    // track google analytics event
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Checkbox',
+                        eventAction: 'Song Select (Song View)',
+                        eventLabel: song.label
+                    });
+                }
             }
 
         };
