@@ -37,10 +37,12 @@
     "prestart": "npm install",
     "start": "node server.js",
     "pretest": "npm install",
-    "postinstall": "bower install && grunt build"
+    "postinstall": "bower install && grunt build",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
-    "body-parser": "~1.5.2",
+    "body-parser": "~1.6.0",
     "bower": "^1.7.9",
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
@@ -49,20 +51,22 @@
     "express": "^4.7.4",
     "firebase": "^3.3.0",
     "getmac": "^1.2.1",
-    "grunt": "^0.4.5",
+    "grunt": "^1.0.0",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-jshint": "^0.11.1",
     "grunt-contrib-nodeunit": "^0.4.1",
     "grunt-contrib-uglify": "^0.5.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "http-server": "^0.6.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "http-server": "^0.9.0",
     "ipware": "0.0.8",
-    "method-override": "~2.1.2",
-    "mocha": "^2.4.5",
+    "method-override": "~2.3.3",
+    "mocha": "^3.0.0",
     "morgan": "~1.2.2",
     "pg": "^4.5.4",
     "pg-native": "^1.10.0",
-    "q": "^1.4.1"
-  }
+    "q": "^1.4.1",
+    "snyk": "^1.19.1"
+  },
+  "snyk": true
 }
