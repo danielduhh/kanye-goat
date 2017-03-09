@@ -40,7 +40,7 @@
     "postinstall": "bower install && grunt build"
   },
   "dependencies": {
-    "body-parser": "~1.5.2",
+    "body-parser": "~1.17.1",
     "bower": "^1.7.9",
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
