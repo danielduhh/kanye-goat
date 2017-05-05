@@ -46,6 +46,7 @@
     "chai-http": "^2.0.1",
     "chai-jq": "0.0.9",
     "chai-things": "^0.2.0",
+    "cors": "^2.8.1",
     "express": "^4.7.4",
     "firebase": "^3.3.0",
     "getmac": "^1.2.1",

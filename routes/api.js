@@ -104,7 +104,7 @@ router.get('/songs', function(req, res, next) {
 
 });
 
-router.get('/all-albums', function(req, res, next) {
+router.get('/albums', function(req, res, next) {
     console.log('get all albums');
 
 

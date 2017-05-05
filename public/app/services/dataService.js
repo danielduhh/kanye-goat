@@ -10,7 +10,7 @@ var app = angular.module("myApp")
             var deferred = $q.defer();
 
 
-            $http.get('api/all-albums', {cache: true}).
+            $http.get('api/albums', {cache: true}).
                 then(function (response) {
                     response.data.features.forEach(function (v) {
                         v.properties.selected = false;
@@ -25,7 +25,7 @@ var app = angular.module("myApp")
                     ga('send', {
                         hitType:'event',
                         eventCategory: 'API',
-                        eventAction: 'GET api/all-albums Success',
+                        eventAction: 'GET api/albums Success',
                         eventLabel: response.status
                     });
 
@@ -36,7 +36,7 @@ var app = angular.module("myApp")
                     ga('send', {
                         hitType:'event',
                         eventCategory: 'API',
-                        eventAction: 'GET api/all-albums Error',
+                        eventAction: 'GET api/albums Error',
                         eventLabel: response.status + ": " + response.data.message
                     });
                 });
