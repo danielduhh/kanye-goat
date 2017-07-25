@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('../pg');
-var Q = require('q');
 var get_ip = require('ipware')().get_ip;
+var db = pg.getDatabase();
 
 
 router.post('/songs', function(req,res,next){
@@ -13,41 +13,26 @@ router.post('/songs', function(req,res,next){
     // get mac address
     //getmac.getMac(function(err, macAddress){
     //    if (err)  throw err;
-        var sql = "SELECT * FROM ___yeezy_vote_song($1,$2,$3)";
+    var sql = "SELECT * FROM ___yeezy_vote_song($1,$2,$3)";
 
-        var preparedStatement = {
-            name: "vote",
-            text: sql,
-            values:[req.body.song, 2, clientIp]
-        };
-
-        pg.queryDeferred(preparedStatement)
-            .then(function(result){
-                res.status(200).json(result[0].vote_song);
-            })
-            .catch(function(err){
-                res.status(400).json({ errCode: 400, status: "ERROR", message: err.message });
-            });
+    db.many(sql, [req.body.song, 2, clientIp])
+        .then(function(response){
+            res.status(200).json({message: "success"});
+        })
+        .catch(function(err){
+            res.status(400).json({ errCode: 400, status: "ERROR", message: err.message });
+        });
     //});
 
 });
 
-router.get('/song-votes', function(req, res, next) {
-    console.log('get song votes');
+router.get('/votes', function(req, res, next) {
 
+    var sql = "SELECT * FROM song_votes";
 
-    // All columns in table with the exception of the geometry column
-    var nonGeomColumns = "song,song_id,album,votes,round";
-
-    var sql = pg.featureCollectionSQL("round_song_votes", nonGeomColumns);
-    var preparedStatement = {
-        name: "get_all_song_votes",
-        text: sql,
-        values:[]};
-
-    pg.queryDeferred(preparedStatement)
-        .then(function(result){
-            res.status(200).json(result[0].response);
+    db.many(sql)
+        .then(function(response){
+            res.status(200).json(response);
         })
         .catch(function(err){
             next(err);
@@ -56,22 +41,29 @@ router.get('/song-votes', function(req, res, next) {
 
 });
 
-router.get('/album-votes', function(req, res, next) {
-    console.log('get album votes');
+router.get('/votes/song', function(req, res, next) {
+
+    var sql = "SELECT song,song_id,album,votes,round FROM round_song_votes";
 
 
-    // All columns in table with the exception of the geometry column
-    var nonGeomColumns = "album,votes,round";
+    db.many(sql)
+        .then(function(response){
+            res.status(200).json(response);
+        })
+        .catch(function(err){
+            next(err);
+        });
 
-    var sql = pg.featureCollectionSQL("round_album_votes", nonGeomColumns);
-    var preparedStatement = {
-        name: "get_all_album_votes",
-        text: sql,
-        values:[]};
 
-    pg.queryDeferred(preparedStatement)
-        .then(function(result){
-            res.status(200).json(result[0].response);
+});
+
+router.get('/votes/album', function(req, res, next) {
+
+    var sql = "SELECT album,votes,round FROM round_album_votes";
+
+    db.many(sql)
+        .then(function(response){
+            res.status(200).json(response);
         })
         .catch(function(err){
             next(err);
@@ -81,21 +73,13 @@ router.get('/album-votes', function(req, res, next) {
 });
 
 router.get('/songs', function(req, res, next) {
-    console.log('get all songs');
+
+    var sql = 'SELECT * FROM view_songs';
 
 
-    // All columns in table with the exception of the geometry column
-    var nonGeomColumns = "id,song_title,album_title,date_released, artist";
-
-    var sql = pg.featureCollectionSQL("view_songs", nonGeomColumns);
-    var preparedStatement = {
-        name: "get_all_songs",
-        text: sql,
-        values:[]};
-
-    pg.queryDeferred(preparedStatement)
-        .then(function(result){
-            res.status(200).json(result[0].response);
+    db.many(sql)
+        .then(function(response){
+            res.status(200).json(response);
         })
         .catch(function(err){
             next(err);
@@ -105,21 +89,12 @@ router.get('/songs', function(req, res, next) {
 });
 
 router.get('/albums', function(req, res, next) {
-    console.log('get all albums');
 
+    var sql = 'SELECT id,title, date_released,duration FROM album';
 
-    // All columns in table with the exception of the geometry column
-    var nonGeomColumns = "id,title, date_released,duration";
-
-    var sql = pg.featureCollectionSQL("album", nonGeomColumns, {whereClause:"WHERE 1=1 ORDER BY date_released DESC"});
-    var preparedStatement = {
-        name: "get_all_albums",
-        text: sql,
-        values:[]};
-
-    pg.queryDeferred(preparedStatement)
-        .then(function(result){
-            res.status(200).json(result[0].response);
+    db.many(sql)
+        .then(function(response){
+            res.status(200).json(response);
         })
         .catch(function(err){
             next(err);
