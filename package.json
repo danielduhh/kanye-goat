@@ -27,7 +27,7 @@
     "karma-junit-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.0",
     "method-override": "~2.1.2",
-    "mongoose": "~3.6.2",
+    "mongoose": "~5.7.7",
     "morgan": "~1.2.2",
     "phantomjs-prebuilt": "^2.1.7",
     "protractor": "^2.1.0",
