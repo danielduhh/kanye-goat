@@ -37,7 +37,9 @@
     "prestart": "npm install",
     "start": "node server.js",
     "pretest": "npm install",
-    "postinstall": "bower install && grunt build"
+    "postinstall": "bower install && grunt build",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "body-parser": "~1.5.2",
@@ -63,6 +65,8 @@
     "morgan": "~1.2.2",
     "pg": "^4.5.4",
     "pg-native": "^1.10.0",
-    "q": "^1.4.1"
-  }
+    "q": "^1.4.1",
+    "snyk": "^1.317.0"
+  },
+  "snyk": true
 }
